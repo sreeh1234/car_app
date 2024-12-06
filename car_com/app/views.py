@@ -13,7 +13,7 @@ def user_login(req):
         user=authenticate(username=uname,password=password)
         if user:
             login(req,user)
-            return redirect(vault)
+            return redirect(user_login)
         else:
             messages.warning(req,'invalid username or password')
             return redirect(user_login)
