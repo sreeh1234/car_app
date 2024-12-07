@@ -8,7 +8,7 @@ from django.contrib.auth.models import User
 # Create your views here.
 
 
-def user_login(req):
+def car_com_login(req):
     if 'shop' in req.session:
         return redirect(shop_home)
     if 'user' in req.session:
@@ -28,17 +28,17 @@ def user_login(req):
                 return redirect(user_home)
         else:
             messages.warning(req,'invalid username or password')
-            return redirect(user_login)
+            return redirect(car_com_login)
     else:
         return render(req,'login.html')
 
-def user_logout(req):
+def car_com_logout(req):
     logout(req)
     req.session.flush()        
-    return redirect(user_login)
+    return redirect(car_com_login)
 
-
-
+# --------------------------------SHOP--------------------------------------
+# --------------------------------------------------------------------------
 
 
 
@@ -50,6 +50,24 @@ def shop_home(req):
     # else:
         # return redirect(user_login)
 
+
+def addpro(req):
+    if 'shop' in req.session:
+        if req.method=='POST':
+            pid=req.POST['pid']
+            name=req.POST['name']
+            dis=req.POST['dis']
+            price=req.POST['price']
+            offer_price=req.POST['offer_price']
+            stock=req.POST['stock']
+            img=req.FILES['img']
+            data=product.objects.create(pid=pid,name=name,dis=dis,price=price,offer_price=offer_price,stock=stock,img=img)
+            data.save()
+            return redirect(shop_home)
+        else:
+            return render(req,'shop/addpro.html')  
+    else:
+        return redirect(car_com_login) 
 
 
 
@@ -65,7 +83,7 @@ def register(req):
         try:
             data=User.objects.create_user(first_name=uname,email=email,username=email,password=pswd)
             data.save()
-            return redirect(user_login)
+            return redirect(car_com_login)
         except:
             messages.warning(req,'Email Already Exist')
             return redirect(register)

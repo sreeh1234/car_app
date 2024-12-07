@@ -3,9 +3,10 @@ from . import views
 
 
 urlpatterns=[
-     path('',views.user_login),
+     path('',views.car_com_login),
     path('shop_home',views.shop_home),
-    path('logout',views.user_logout),
+    path('logout',views.car_com_logout),
+    path('add product',views.addpro),
     
     
     
