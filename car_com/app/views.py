@@ -44,11 +44,11 @@ def car_com_logout(req):
 
 
 def shop_home(req):
-    # if 'shop' in req.session:
-    #     products=product.objects.all()
-    return render(req,'shop/home.html')
-    # else:
-        # return redirect(user_login)
+    if 'shop' in req.session:
+        products=product.objects.all()
+        return render(req,'shop/home.html',{'product':products})
+    else:
+        return redirect(car_com_login)
 
 
 def addpro(req):
@@ -60,7 +60,7 @@ def addpro(req):
             price=req.POST['price']
             offer_price=req.POST['offer_price']
             stock=req.POST['stock']
-            img=req.FILES['img']
+            img=req.FILES.get('img')
             data=product.objects.create(pid=pid,name=name,dis=dis,price=price,offer_price=offer_price,stock=stock,img=img)
             data.save()
             return redirect(shop_home)
@@ -68,6 +68,28 @@ def addpro(req):
             return render(req,'shop/addpro.html')  
     else:
         return redirect(car_com_login) 
+    
+    
+def editpro(req,id):
+    if req.method=='POST':
+        pid=req.POST['pid']
+        name=req.POST['name']
+        dis=req.POST['dis']
+        price=req.POST['price']
+        offer_price=req.POST['offer_price']
+        stock=req.POST['stock']
+        img=req.FILES.get('img')
+        if img:
+            product.objects.filter(pk=id).update(pid=pid,name=name,dis=dis,price=price,offer_price=offer_price,stock=stock)
+            data=product.objects.get(pk=id)
+            data.img=img
+            data.save()
+        else:
+             product.objects.filter(pk=id).update(pid=pid,name=name,dis=dis,price=price,offer_price=offer_price,stock=stock)
+        return redirect(shop_home)     
+    else:
+        data=product.objects.get(pk=id)        
+        return render(req,'shop/edit.html',{'data':data})    
 
 
 
@@ -93,8 +115,8 @@ def register(req):
 
 
 def user_home(req):
-    # if 'user' in req.session:
-    #     products=product.objects.all()
-    return render(req,'user/home.html')
-    # else:
-    #     return redirect(user_login)
+    if 'user' in req.session:
+        products=product.objects.all()
+        return render(req,'user/home.html',{'product':products})
+    else:
+        return redirect(car_com_login_login)
