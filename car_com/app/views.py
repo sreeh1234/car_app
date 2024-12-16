@@ -89,7 +89,10 @@ def editpro(req,id):
         return redirect(shop_home)     
     else:
         data=product.objects.get(pk=id)        
-        return render(req,'shop/edit.html',{'data':data})    
+        return render(req,'shop/edit.html',{'data':data}) 
+
+
+
 
 
 
@@ -106,7 +109,7 @@ def register(req):
             data=User.objects.create_user(first_name=uname,email=email,username=email,password=pswd)
             data.save()
             return redirect(car_com_login)
-        except:
+        except: 
             messages.warning(req,'Email Already Exist')
             return redirect(register)
     else:
@@ -119,4 +122,4 @@ def user_home(req):
         products=product.objects.all()
         return render(req,'user/home.html',{'product':products})
     else:
-        return redirect(car_com_login_login)
+        return redirect(car_com_login)
