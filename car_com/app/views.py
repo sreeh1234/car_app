@@ -57,17 +57,40 @@ def addpro(req):
             pid=req.POST['pid']
             name=req.POST['name']
             dis=req.POST['dis']
-            price=req.POST['price']
-            offer_price=req.POST['offer_price']
-            stock=req.POST['stock']
+            categories=req.POST['cat']
             img=req.FILES.get('img')
-            data=product.objects.create(pid=pid,name=name,dis=dis,price=price,offer_price=offer_price,stock=stock,img=img)
+            data=product.objects.create(pid=pid,name=name,dis=dis,categories=category.objects.get(categories=categories),img=img)
             data.save()
-            return redirect(shop_home)
+            return redirect(detail)
         else:
-            return render(req,'shop/addpro.html')  
+            data=category.objects.all()
+            return render(req,'shop/addpro.html',{'data':data})  
     else:
         return redirect(car_com_login) 
+    
+def cat(req):
+    if req.method=="POST":
+        categories=req.POST['category']
+        data=category.objects.create(categories=categories)
+        data.save()
+        return redirect(shop_home)
+    else:
+        data=category.objects.all()
+        return render(req,'shop/category.html',{'data':data}) 
+
+def detail(req):
+    if req.method=='POST': 
+        pro=req.POST['pid']
+        price=req.POST['price']
+        offer_price=req.POST['offer_price']
+        stock=req.POST['stock']
+        weight=req.POST['weight']
+        data=details.objects.create(price=price,offer_price=offer_price,stock=stock,prod=product.objects.get(pid=pro),weight=weight) 
+        data.save()
+        return redirect(shop_home)
+    else:
+        data=details.objects.all()
+        return render(req,'shop/details.html',{'data':data})
     
     
 def editpro(req,id):

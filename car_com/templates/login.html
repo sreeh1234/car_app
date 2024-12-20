@@ -5,8 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     {% load static  %}
-    <link rel="stylesheet" href="{% static 'cstyle.css' %}">
+    <link rel="stylesheet" href="{% static 'ccstyle.css' %}">
 </head>
+
 <body>
 
 
@@ -17,10 +18,14 @@
         {% csrf_token %}
         <input type="text" name="uname" id="" class="box" placeholder="User Name"><br><br>
         <input type="password" name="password" class="box" id="" placeholder="Password"><br><br>
-        <input type="submit" class="button" value="login">
+        <div class="flex">
+            <input type="submit" class="btn" value="login">
+            <a href="register"><input type="button" class="btn2" value="Register"></a>
+        </div>
+        
     </form>
     <div>
-        <a href="register" class="reg">Register</a>
+        <!-- <a href="register" class="reg">Register</a> -->
     </div>
 </div>    
  
