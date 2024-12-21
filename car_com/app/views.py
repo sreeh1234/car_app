@@ -45,7 +45,7 @@ def car_com_logout(req):
 
 def shop_home(req):
     if 'shop' in req.session:
-        products=product.objects.all()
+        products=details.objects.all()
         return render(req,'shop/home.html',{'product':products})
     else:
         return redirect(car_com_login)
@@ -85,11 +85,11 @@ def detail(req):
         offer_price=req.POST['offer_price']
         stock=req.POST['stock']
         weight=req.POST['weight']
-        data=details.objects.create(price=price,offer_price=offer_price,stock=stock,prod=product.objects.get(pid=pro),weight=weight) 
+        data=details.objects.create(price=price,offer_price=offer_price,stock=stock,product=product.objects.get(name=pro),weight=weight) 
         data.save()
         return redirect(shop_home)
     else:
-        data=details.objects.all()
+        data=product.objects.all()
         return render(req,'shop/details.html',{'data':data})
     
     
@@ -114,6 +114,15 @@ def editpro(req,id):
         data=product.objects.get(pk=id)        
         return render(req,'shop/edit.html',{'data':data}) 
 
+
+def delete(req,pid):
+    data=product.objects.get(pk=pid)
+    file=data.img.url
+    file=file.split('/')[-1]
+    os.remove('media/'+file)
+    data.delete()
+    return redirect(shop_home)
+   
 
 
 

@@ -4,23 +4,30 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'add.css' %}">
 </head>
 <body>
     
 
-    <form action="" method="post">
-        {% csrf_token %}
-        <label for="prodet">Product Id :</label><br>
-        <select name="pid" class="drop" id="" required>
-            {% for i in data %}
-                <option value="{{i.pid}}">{{i.pid}}</option>
-            {% endfor %}
-        </select><br><br>
-        <input type="number" name="price" id="" placeholder="Price" required><br><br>
-        <input type="number" name="offer_price" id=""  placeholder="Offer_Price" required><br><br>
-        <input type="number" name="stock" id="" class="log" placeholder="Quantity" required><br><br>
-        <input type="text" name="weight" id="" class="log" placeholder="Weight" required><br><br>
-        <input type="submit" value="Add">
-    </form>
+    <div class="all">
+        <h1>ADD DETAILS</h1>
+        <form action="" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <label for="prodet">Product Id:</label><br>
+            <select name="pid" class="drop" id="" required>
+                {% for i in data %}
+                    <option value="{{i.name}}">{{i.name}}</option>
+                {% endfor %}
+            </select><br><br>
+            <input type="number" name="price" id="" class="box" placeholder="Price" required><br><br>
+            <input type="number" name="offer_price" id="" class="box" placeholder="Offer_Price" required><br><br>
+            <input type="number" name="stock" id="" class="box" placeholder="Quantity" required><br><br>
+            <input type="text" name="weight" id="" class="box" placeholder="Weight" required><br><br>
+            <input type="submit" class="btn" value="Add">
+        </form>    
+    </div>  
+
+
 </body>
 </html>
