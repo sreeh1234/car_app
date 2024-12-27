@@ -98,17 +98,14 @@ def editpro(req,id):
         pid=req.POST['pid']
         name=req.POST['name']
         dis=req.POST['dis']
-        price=req.POST['price']
-        offer_price=req.POST['offer_price']
-        stock=req.POST['stock']
         img=req.FILES.get('img')
         if img:
-            product.objects.filter(pk=id).update(pid=pid,name=name,dis=dis,price=price,offer_price=offer_price,stock=stock)
+            product.objects.filter(pk=id).update(pid=pid,name=name,dis=dis)
             data=product.objects.get(pk=id)
             data.img=img
             data.save()
         else:
-             product.objects.filter(pk=id).update(pid=pid,name=name,dis=dis,price=price,offer_price=offer_price,stock=stock)
+             product.objects.filter(pk=id).update(pid=pid,name=name,dis=dis)
         return redirect(shop_home)     
     else:
         data=product.objects.get(pk=id)        
