@@ -152,3 +152,7 @@ def user_home(req):
         return render(req,'user/home.html',{'product':products})
     else:
         return redirect(car_com_login)
+    
+def viewpro(req,pid):
+    data=product.objects.get(pk=pid) 
+    return render(req,'user/view.html',{'data':data})    
