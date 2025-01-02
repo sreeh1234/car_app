@@ -77,21 +77,21 @@ def cat(req):
     else:
         data=category.objects.all()
         return render(req,'shop/category.html',{'data':data}) 
+    
 
 def detail(req):
-    if req.method=='POST': 
+    if req.method=='POST':
         pro=req.POST['pid']
         price=req.POST['price']
         offer_price=req.POST['offer_price']
         stock=req.POST['stock']
         weight=req.POST['weight']
-        data=details.objects.create(price=price,offer_price=offer_price,stock=stock,product=product.objects.get(name=pro),weight=weight) 
+        data=details.objects.create(price=price,offer_price=offer_price,stock=stock,weight=weight,product=product.objects.get(pid=pro))
         data.save()
         return redirect(shop_home)
     else:
         data=product.objects.all()
-        return render(req,'shop/details.html',{'data':data})
-    
+        return render(req,'shop/details.html',{'data':data})    
     
 def editpro(req,id):
     if req.method=='POST':
@@ -155,4 +155,5 @@ def user_home(req):
     
 def viewpro(req,pid):
     data=product.objects.get(pk=pid) 
-    return render(req,'user/view.html',{'data':data})    
+    Detail=details.objects.filter(product=pid)
+    return render(req,'user/view.html',{'data':data,'Detail':Detail})    

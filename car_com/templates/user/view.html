@@ -16,8 +16,10 @@
         <img src="{{data.img.url}}" alt="Card image" style="width:20%;height:50%">
         <h2>{{data.name}}</h2>                                                                                                                      
         <h6>{{data.dis}}</h6><br>
-        Price :{{data.price}}<br><br>
-        Offer Price : {{data.offer_price}}<br><br>
+    {% for i in Detail %}
+            Price :{{i.price}}<br><br>
+            Offer Price : {{i.offer_price}}<br><br>
+    {% endfor %}
         <a href='../buyproduct/{{data.pk}}' class="btn btn-primary">Buy Now</a>
         <a href='../addtocart/{{data.pk}}' class="btn btn-primary">Add to cart</a>
         
