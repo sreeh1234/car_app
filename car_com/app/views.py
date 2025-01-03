@@ -86,7 +86,7 @@ def detail(req):
         offer_price=req.POST['offer_price']
         stock=req.POST['stock']
         weight=req.POST['weight']
-        data=details.objects.create(price=price,offer_price=offer_price,stock=stock,weight=weight,product=product.objects.get(pid=pro))
+        data=details.objects.create(price=price,offer_price=offer_price,stock=stock,weight=weight,product=product.objects.get(pk=pro))
         data.save()
         return redirect(shop_home)
     else:
@@ -98,6 +98,10 @@ def editpro(req,id):
         pid=req.POST['pid']
         name=req.POST['name']
         dis=req.POST['dis']
+        price = req.POST['price']
+        offer_price = req.POST['offer_price']
+        stock = req.POST['stock']
+        weight = req.POST['weight']
         img=req.FILES.get('img')
         if img:
             product.objects.filter(pk=id).update(pid=pid,name=name,dis=dis)
@@ -106,11 +110,15 @@ def editpro(req,id):
             data.save()
         else:
              product.objects.filter(pk=id).update(pid=pid,name=name,dis=dis)
-        return redirect(shop_home)     
-    else:
-        data=product.objects.get(pk=id)        
-        return render(req,'shop/edit.html',{'data':data}) 
+        # return redirect(shop_home)  
 
+        details.objects.filter(pk=id).update(price=price, offer_price=offer_price, stock=stock,weight=weight)
+        return redirect(shop_home)   
+    else:
+        pro_data=product.objects.get(pk=id)
+        Details = details.objects.get(pk=id)       
+        return render(req,'shop/edit.html',{'pro_data':pro_data,'Details':Details}) 
+    
 
 def delete(req,pid):
     data=product.objects.get(pk=pid)
@@ -157,3 +165,39 @@ def viewpro(req,pid):
     data=product.objects.get(pk=pid) 
     Detail=details.objects.filter(product=pid)
     return render(req,'user/view.html',{'data':data,'Detail':Detail})    
+
+
+def add_to_cart(req,pid):
+    products=product.objects.get(pk=pid) 
+    user=User.objects.get(username=req.session['user'])
+    try:
+        Cart=cart.objects.get(product=products,user=user)
+        Cart.qty+=1
+        Cart.save()
+    except:    
+        data=cart.objects.create(product=products,user=user,qty=1)
+        data.save()
+    return redirect(view_cart)
+
+def view_cart(req):
+    user=User.objects.get(username=req.session['user'])
+    data=cart.objects.filter(user=user)
+    return render(req,'user/cart.html',{'cart':data})
+
+def qty_incri(req,cid):
+    data=cart.objects.get(pk=cid)
+    print(data.qty)
+    print(data.details.stock)
+    if data.product.stock > data.qty:
+        data.qty+=1
+        data.save()
+    return redirect(view_cart)   
+
+
+def qty_dec(req,cid):
+    data=cart.objects.get(pk=cid)
+    data.qty-=1
+    data.save()
+    if data.qty==0:
+        data.delete()
+    return redirect(view_cart)  

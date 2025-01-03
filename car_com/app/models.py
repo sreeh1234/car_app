@@ -7,7 +7,7 @@ class category(models.Model):
 
 class product(models.Model):
     categories=models.ForeignKey(category,on_delete=models.CASCADE)
-    pid=models.TextField()
+    pid=models.TextField(unique=True)
     name=models.TextField()
     dis=models.TextField()
     img=models.FileField()
@@ -18,3 +18,8 @@ class details(models.Model):
     offer_price=models.IntegerField()
     stock=models.IntegerField()    
     weight=models.TextField()
+
+class cart(models.Model):
+    product=models.ForeignKey(product,on_delete=models.CASCADE)
+    user=models.ForeignKey(User,on_delete=models.CASCADE)
+    qty=models.IntegerField()    
