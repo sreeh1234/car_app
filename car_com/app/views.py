@@ -103,6 +103,7 @@ def editpro(req,id):
         stock = req.POST['stock']
         weight = req.POST['weight']
         img=req.FILES.get('img')
+        pro_data=product.objects.get(pk=id)
         if img:
             product.objects.filter(pk=id).update(pid=pid,name=name,dis=dis)
             data=product.objects.get(pk=id)
@@ -112,11 +113,11 @@ def editpro(req,id):
              product.objects.filter(pk=id).update(pid=pid,name=name,dis=dis)
         # return redirect(shop_home)  
 
-        details.objects.filter(pk=id).update(price=price, offer_price=offer_price, stock=stock,weight=weight)
+        details.objects.filter(product=pro_data).update(price=price, offer_price=offer_price, stock=stock,weight=weight)
         return redirect(shop_home)   
     else:
         pro_data=product.objects.get(pk=id)
-        Details = details.objects.get(pk=id)       
+        Details = details.objects.get(product=pro_data)       
         return render(req,'shop/edit.html',{'pro_data':pro_data,'Details':Details}) 
     
 
