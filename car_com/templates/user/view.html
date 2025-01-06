@@ -14,11 +14,18 @@
     <div class="vpro mt-5">
         
         <img src="{{data.img.url}}" alt="Card image" style="width:20%;height:50%">
-        <h2>{{data.name}}</h2>                                                                                                                      
-        <h6>{{data.dis}}</h6><br>
+        <h5>{{data.name}}</h5>                                                                                                                      
+        <p>{{data.dis}}</p><br>
     {% for i in Detail %}
-            Price :{{i.price}}<br><br>
-            Offer Price : {{i.offer_price}}<br><br>
+        <div>
+            <h6 style="text-decoration: line-through;">Price :{{i.price}}</h6>
+        </div>
+        <div>
+            <h6 style="color: green;">offer_price : {{i.offer_price}}</h6>
+        </div>
+        
+        
+            
     {% endfor %}
         <a href='../buyproduct/{{data.pk}}' class="btn btn-primary">Buy Now</a>
         <a href='../addtocart/{{data.pk}}' class="btn btn-primary">Add to cart</a>

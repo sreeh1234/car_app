@@ -12,11 +12,13 @@
     <div class="container">
         <div class="row">
             {% for i in cart %}
-            <div class="card" style="width:400px;height:650px">
-                <img class="card-img-top" src="{{i.product.img.url}}" alt="Card image" style="width:100%;height:400%;">
+            <div class="card" style="width:400px;height:800px">
+                <img class="card-img-top" src="{{i.details.product.img.url}}" alt="Card image" style="width:100%;height:400%;">
                 <div class="card-body">
-                  <h4 class="card-title">{{i.product.name}}</h4>
-                  <p class="card-text">{{i.qty}}</p>
+                  <h4 class="card-title">{{i.details.product.name}}</h4>
+                  <p>{{i.details.product.dis}}</p>
+                  <p class="card-text">Weight : {{i.details.weight}}</p>
+                  <p class="card-text">price : {{i.details.offer_price}}</p>
                   <p>
                     <a href="decrement/{{i.pk}}"> - </a>
                     qty : {{i.qty}}

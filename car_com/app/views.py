@@ -169,14 +169,14 @@ def viewpro(req,pid):
 
 
 def add_to_cart(req,pid):
-    products=product.objects.get(pk=pid) 
+    detail=details.objects.get(pk=pid) 
     user=User.objects.get(username=req.session['user'])
     try:
-        Cart=cart.objects.get(product=products,user=user)
+        Cart=cart.objects.get(details=detail,user=user)
         Cart.qty+=1
         Cart.save()
     except:    
-        data=cart.objects.create(product=products,user=user,qty=1)
+        data=cart.objects.create(details=detail,user=user,qty=1)
         data.save()
     return redirect(view_cart)
 
@@ -189,7 +189,7 @@ def qty_incri(req,cid):
     data=cart.objects.get(pk=cid)
     print(data.qty)
     print(data.details.stock)
-    if data.product.stock > data.qty:
+    if data.details.stock > data.qty:
         data.qty+=1
         data.save()
     return redirect(view_cart)   

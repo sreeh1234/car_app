@@ -44,8 +44,8 @@
         <div class="card-body">
           <h4 class="card-title">{{pro.product.name}}</h4>
           <p class="card-text">{{pro.product.dis}}</p>
-          <h5 class="card-text">Price : {{pro.price}}</h5>
-          <h5 class="card-text">Offer Price :{{pro.offer_price}}</h5>
+          <h5 class="card-text" style="text-decoration: line-through;">Price : {{pro.price}}</h5>
+          <h5 class="card-text" style="color: green;">Offer Price :{{pro.offer_price}}</h5>
           <p class="card-text">Stock : {{pro.stock}}</p>
           <p class="card-text">Weight : {{pro.weight}}</p>
           <a href='edit_product/{{pro.product.pk}}' class="btn btn-primary">Edit</a>
