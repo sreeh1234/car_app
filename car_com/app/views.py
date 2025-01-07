@@ -77,7 +77,9 @@ def cat(req):
     else:
         data=category.objects.all()
         return render(req,'shop/category.html',{'data':data}) 
-    
+
+
+
 
 def detail(req):
     if req.method=='POST':
@@ -201,4 +203,51 @@ def qty_dec(req,cid):
     data.save()
     if data.qty==0:
         data.delete()
-    return redirect(view_cart)  
+    return redirect(view_cart) 
+
+
+
+def buy_product(req,pid):
+    detail=details.objects.get(pk=pid)
+    user=User.objects.get(username=req.session['user'])
+    qty=1
+    price=detail.offer_price
+    buy=Buy.objects.create(details=detail,user=user,qty=qty,t_price=price)
+    buy.save()
+    return redirect(user_bookings)
+
+
+def cart_buy(req):
+    user = User.objects.get(username=req.session['user'])
+    cart_items = cart.objects.filter(user=user)
+
+    if not Cart_items:
+        return redirect(view_cart)
+
+    for Cart in Cart_items:
+        price = Cart.qty * Cart.details.offer_price
+        details = Cart.details
+
+        if details.stock >= Cart.qty:
+
+            details.stock -= Cart.qty
+            details.save()
+
+            Buy.objects.create(details=details,user=user,quantity=cart.quantity,t_price=price)
+        else:
+            return redirect(view_cart)
+
+
+    # Cart=cart.objects.get(pk=cid)
+    # price=Cart.qty*Cart.details.offer_price
+    # detail = cart.details
+    # buy=Buy.objects.create(details=detail,user=Cart.user,qty=Cart.qty,t_price=price)
+    # buy.save()
+    # data=cart.objects.get(pk=cid)
+    # return redirect(user_bookings)
+    
+
+def user_bookings(req):
+    user=User.objects.get(username=req.session['user'])
+    bookings=Buy.objects.filter(user=user)[::-1]
+    return render(req,'user/bookings.html',{'bookings':bookings})
