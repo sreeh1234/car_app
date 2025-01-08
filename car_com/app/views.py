@@ -171,7 +171,7 @@ def viewpro(req,pid):
 
 
 def add_to_cart(req,pid):
-    detail=details.objects.get(pk=pid) 
+    detail=details.objects.get(product=pid) 
     user=User.objects.get(username=req.session['user'])
     try:
         Cart=cart.objects.get(details=detail,user=user)
@@ -208,7 +208,7 @@ def qty_dec(req,cid):
 
 
 def buy_product(req,pid):
-    detail=details.objects.get(pk=pid)
+    detail=details.objects.get(product=pid)
     user=User.objects.get(username=req.session['user'])
     qty=1
     price=detail.offer_price
@@ -221,10 +221,10 @@ def cart_buy(req):
     user = User.objects.get(username=req.session['user'])
     cart_items = cart.objects.filter(user=user)
 
-    if not Cart_items:
+    if not cart_items:
         return redirect(view_cart)
 
-    for Cart in Cart_items:
+    for Cart in cart_items:
         price = Cart.qty * Cart.details.offer_price
         details = Cart.details
 
@@ -233,7 +233,7 @@ def cart_buy(req):
             details.stock -= Cart.qty
             details.save()
 
-            Buy.objects.create(details=details,user=user,quantity=cart.quantity,t_price=price)
+            Buy.objects.create(details=details,user=user,qty=Cart.qty,t_price=price)
         else:
             return redirect(view_cart)
 
