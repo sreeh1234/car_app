@@ -30,4 +30,8 @@ class Buy(models.Model):
     user=models.ForeignKey(User,on_delete=models.CASCADE)
     qty=models.IntegerField()
     t_price=models.IntegerField()
-    date=models.DateField(auto_now_add=True)    
+    date=models.DateField(auto_now_add=True)
+
+class Otp(models.Model):
+    user=models.ForeignKey(User,on_delete=models.CASCADE)
+    otp=models.TextField()        

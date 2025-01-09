@@ -4,6 +4,9 @@ from django.contrib import messages
 from .models import *
 import os
 from django.contrib.auth.models import User
+from django.core.mail import send_mail
+from django.conf import settings
+import random
 
 # Create your views here.
 
@@ -73,12 +76,20 @@ def cat(req):
         categories=req.POST['category']
         data=category.objects.create(categories=categories)
         data.save()
-        return redirect(shop_home)
+        return redirect(cat)
     else:
         data=category.objects.all()
         return render(req,'shop/category.html',{'data':data}) 
 
+def view_products(req,id):
+    category1 = category.objects.get(pk=id)
+    detail = details.objects.filter(product__categories=category1)
+    return render(req, 'shop/viewproducts.html', {'category': category1,'detail': detail})
 
+def delete_category(req,id):
+    data=category.objects.get(pk=id)
+    data.delete()
+    return redirect(cat)
 
 
 def detail(req):
@@ -144,17 +155,46 @@ def register(req):
     if req.method=='POST':
         uname=req.POST['uname']
         email=req.POST['email']
-        pswd=req.POST['pswd']        
+        pswd=req.POST['pswd']
         try:
             data=User.objects.create_user(first_name=uname,email=email,username=email,password=pswd)
             data.save()
-            return redirect(car_com_login)
-        except: 
-            messages.warning(req,'Email Already Exist')
+            otp=""
+            for i in range(6):
+                otp+=str(random.randint(0,9))
+            msg=f'Your registration is completed otp: {otp}'
+            otp=Otp.objects.create(user=data,otp=otp)
+            otp.save()
+            send_mail('Registration',msg, settings.EMAIL_HOST_USER, [email])
+            return redirect(otp_confirmation)
+        except:
+            messages.warning(req,'Email already exist')
             return redirect(register)
     else:
         return render(req,'user/register.html')
 
+
+def otp_confirmation(req):
+    if req.method == 'POST':
+        uname = req.POST.get('uname')
+        user_otp = req.POST.get('otp')
+        try:
+            user = User.objects.get(username=uname)
+            generated_otp = Otp.objects.get(user=user)
+    
+            if generated_otp.otp == user_otp:
+                generated_otp.delete()
+                return redirect(car_com_login)
+            else:
+                messages.warning(req, 'Invalid OTP')
+                return redirect(otp_confirmation)
+        except User.DoesNotExist:
+            messages.warning(req, 'User does not exist')
+            return redirect(otp_confirmation)
+        except Otp.DoesNotExist:
+            messages.warning(req, 'OTP not found or expired')
+            return redirect(otp_confirmation)
+    return render(req, 'user/otp.html')
 
 
 def user_home(req):
@@ -217,34 +257,41 @@ def buy_product(req,pid):
     return redirect(user_bookings)
 
 
-def cart_buy(req):
-    user = User.objects.get(username=req.session['user'])
-    cart_items = cart.objects.filter(user=user)
+# def cart_buy(req,cid):
+#     user = User.objects.get(username=req.session['user'])
+#     cart_items = cart.objects.filter(user=user)
 
-    if not cart_items:
+#     if not cart_items:
+#         return redirect(view_cart)
+
+#     for Cart in cart_items:
+#         price = Cart.qty * Cart.details.offer_price
+#         details = Cart.details
+
+#         if details.stock >= Cart.qty:
+
+#             details.stock -= Cart.qty
+#             details.save()
+
+#             Buy.objects.create(details=details,user=user,qty=Cart.qty,t_price=price)
+#         else:
+#             return redirect(view_cart)
+    
+#     return redirect(user_bookings) 
+
+def cart_buy(req,cid):
+
+    Cart=cart.objects.get(pk=cid)
+    price=Cart.qty*Cart.details.offer_price
+    stock=Cart.details.stock-Cart.qty
+    if stock==0:
+        messages.warning(req,'OUT OF STOCK'+Cart.details.product.name)
         return redirect(view_cart)
-
-    for Cart in cart_items:
-        price = Cart.qty * Cart.details.offer_price
-        details = Cart.details
-
-        if details.stock >= Cart.qty:
-
-            details.stock -= Cart.qty
-            details.save()
-
-            Buy.objects.create(details=details,user=user,qty=Cart.qty,t_price=price)
-        else:
-            return redirect(view_cart)
+    buy=Buy.objects.create(details=Cart.details,user=Cart.user,qty=Cart.qty,t_price=price)
+    buy.save()
+    return redirect(user_bookings)   
 
 
-    # Cart=cart.objects.get(pk=cid)
-    # price=Cart.qty*Cart.details.offer_price
-    # detail = cart.details
-    # buy=Buy.objects.create(details=detail,user=Cart.user,qty=Cart.qty,t_price=price)
-    # buy.save()
-    # data=cart.objects.get(pk=cid)
-    # return redirect(user_bookings)
     
 
 def user_bookings(req):
