@@ -207,11 +207,15 @@ def user_home(req):
 def viewpro(req,pid):
     data=product.objects.get(pk=pid) 
     Detail=details.objects.filter(product=pid)
-    return render(req,'user/view.html',{'data':data,'Detail':Detail})    
+    Detail2=details.objects.get(product=pid,pk=Detail[0].pk)
+    if req.GET.get('dis'):
+            dis=req.GET.get('dis')
+            Detail2=details.objects.get(product=pid,pk=dis)
+    return render(req,'user/view.html',{'data':data,'Detail':Detail,'Detail2':Detail2})    
 
 
 def add_to_cart(req,pid):
-    detail=details.objects.get(product=pid) 
+    detail=details.objects.get(pk=pid) 
     user=User.objects.get(username=req.session['user'])
     try:
         Cart=cart.objects.get(details=detail,user=user)
@@ -248,7 +252,7 @@ def qty_dec(req,cid):
 
 
 def buy_product(req,pid):
-    detail=details.objects.get(product=pid)
+    detail=details.objects.get(pk=pid)
     user=User.objects.get(username=req.session['user'])
     qty=1
     price=detail.offer_price
@@ -256,28 +260,6 @@ def buy_product(req,pid):
     buy.save()
     return redirect(user_bookings)
 
-
-# def cart_buy(req,cid):
-#     user = User.objects.get(username=req.session['user'])
-#     cart_items = cart.objects.filter(user=user)
-
-#     if not cart_items:
-#         return redirect(view_cart)
-
-#     for Cart in cart_items:
-#         price = Cart.qty * Cart.details.offer_price
-#         details = Cart.details
-
-#         if details.stock >= Cart.qty:
-
-#             details.stock -= Cart.qty
-#             details.save()
-
-#             Buy.objects.create(details=details,user=user,qty=Cart.qty,t_price=price)
-#         else:
-#             return redirect(view_cart)
-    
-#     return redirect(user_bookings) 
 
 def cart_buy(req,cid):
 
