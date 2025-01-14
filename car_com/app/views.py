@@ -134,6 +134,11 @@ def editpro(req,id):
         return render(req,'shop/edit.html',{'pro_data':pro_data,'Details':Details}) 
     
 
+
+def bookings(req):
+    booking=Buy.objects.all()[::-1]
+    return render(req,'shop/bookings.html',{'bookings':booking})
+
 def delete(req,pid):
     data=product.objects.get(pk=pid)
     file=data.img.url

@@ -19,38 +19,41 @@
     <div class="row">
       
 
-          <img src="{{data.img.url}}" alt="" style="width: 300px;height: 300px;">
+          <img src="{{data.img.url}}" alt="" style="width: 300px;height: 270px;">
       
-      <div class="col-lg-6">
-          <h2>{{data.name}}</h2>
-          <h6>{{Detail2.price}}</h6>
-          <h6>{{Detail2.offer_per}}</h6>
+      <div class="col-lg-6 mt-3">
+          <h3>{{data.name}}</h3>
+          <h6 style="text-decoration: line-through;">₹{{Detail2.price}}</h6>
+          <h6 style="color: green;">₹{{Detail2.offer_price}}</h6>
           
           {% if Detail2.stock > 0 %}
-          <h5> ONLY {{Detail2.stock}} LEFT</h5>
+          <h6> ONLY <span style="color: red;">{{Detail2.stock}}</span> LEFT</h6>
           {% else %}
           <h4>OUT OF STOCK </h4>
           {% endif %}
           {% for j in Detail %}
-
+        <div>
           <label class="" for="">
             <input type="radio" onchange="get_correct_price('{{j.pk}}')" name="select" {% if Detail2.pk == j.pk %} checked {% endif %}  id="" >
             <div class="label">{{j.weight}}</div>
           </label>
+        </div>
           {% endfor %} <br>
           {% if Detail2.stock > 0 %}
           <a class="btn btn-primary" href="../addtocart/{{Detail2.pk}}">Add to cart</a>
           <a class="btn btn-primary" href="../buyproduct/{{Detail2.pk}}">Buy Now</a>
           {% else %}            
           {% endif %}
-          
-          
+        
 
 
       
   </div>
   </div>
-
+  <div class=" mt-4" style="text-align: right;margin-right: 200px;">
+    <a href="../viewcart" class="btn btn-danger" >Go back</a>
+  </div>
+  
 
 <script>
   function get_correct_price(dis){

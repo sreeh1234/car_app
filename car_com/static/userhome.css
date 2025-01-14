@@ -1,0 +1,69 @@
+/* Custom Card Styles */
+.custom-card {
+    border-radius: 5px; /* Rounded corners */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2); /* Stronger shadow for depth */
+    overflow: hidden; /* Hide overflow */
+    transition: all 0.3s ease; /* Smooth transition on hover */
+    background-color: #333; /* Dark background for the card */
+  }
+  
+  .custom-card:hover {
+    transform: translateY(-10px); /* Lift the card slightly on hover */
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3); /* Darker shadow on hover */
+  }
+  
+  /* Image Styling */
+  .custom-card .card-img-top {
+    border-bottom: 4px solid red; /* Red border under the image */
+    transition: transform 0.3s ease; /* Smooth scale transition */
+  }
+  
+  .custom-card .card-img-top:hover {
+    transform: scale(1.05); /* Slight zoom effect on hover */
+  }
+  
+  /* Card Body Styling */
+  .custom-card .card-body {
+    padding: 25px;
+    background-color: #222; /* Darker background for the body */
+    color: #fff; /* White text for readability */
+    position: relative;
+    z-index: 1;
+  }
+  
+  /* Title Styling */
+  .custom-card .card-title {
+    font-size: 1.5rem; /* Larger title */
+    font-weight: bold;
+    color: #e60000; /* Red color for title */
+    margin-bottom: 15px; /* Space between title and text */
+    text-transform: uppercase; /* Uppercase text */
+    letter-spacing: 1px; /* Slight spacing between letters */
+  }
+  
+  /* Text Styling */
+  .custom-card .card-text {
+    font-size: 1rem; /* Standard text size */
+    color: #ddd; /* Light gray color for description */
+    margin-bottom: 20px; /* Space below text */
+  }
+  
+  /* Button Styling */
+  .custom-card .btn-primary {
+    background-color: #e60000; /* Red button */
+    border: none;
+    padding: 12px 25px; /* Larger padding */
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border-radius: 30px; /* Fully rounded button */
+    transition: background-color 0.3s ease, transform 0.3s ease; /* Smooth color and scale transition */
+  }
+  
+  .custom-card .btn-primary:hover {
+    background-color: #b30000; /* Darker red on hover */
+    transform: scale(1.05); /* Slight zoom effect on button hover */
+  }
+  
+  /* Hover
+  
