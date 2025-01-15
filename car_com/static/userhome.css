@@ -1,69 +1,128 @@
 /* Custom Card Styles */
 .custom-card {
-    border-radius: 5px; /* Rounded corners */
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2); /* Stronger shadow for depth */
-    overflow: hidden; /* Hide overflow */
-    transition: all 0.3s ease; /* Smooth transition on hover */
-    background-color: #333; /* Dark background for the card */
+  border-radius: 5px; /* Rounded corners */
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); /* Lighter shadow for a more modern look */
+  overflow: hidden; /* Hide overflow */
+  transition: all 0.3s ease; /* Smooth transition on hover */
+  background-color: #333333; /* Dark background for the card */
+  color: #e0e0e0; /* Light grey text color */
+}
+
+.custom-card:hover {
+  transform: translateY(-10px); /* Lift the card slightly on hover */
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2); /* Darker shadow on hover */
+  background-color: #555555; /* Slightly lighter grey background on hover */
+  color: #FFFFFF; /* White text on hover */
+}
+
+/* Image Styling */
+.custom-card .card-img-top {
+  border-bottom: 4px solid #555555; /* Dark grey border under the image */
+  transition: border-color 0.3s ease, background-color 0.3s ease; /* Smooth transition */
+  background-color: #444444; /* Darker grey background for the image */
+}
+
+.custom-card .card-img-top:hover {
+  border-color: #FFFFFF; /* White border on hover */
+  background-color: #555555; /* Lighter grey background on hover */
+}
+
+/* Card Body Styling */
+.custom-card .card-body {
+  padding: 25px;
+  background-color: #333333; /* Dark grey background for the body */
+  color: #e0e0e0; /* Light grey text color */
+  position: relative;
+  z-index: 1;
+}
+
+.custom-card .card-body:hover {
+  background-color: #555555; /* Lighter grey background on hover */
+  color: #FFFFFF; /* White text on hover */
+}
+
+/* Title Styling */
+.custom-card .card-title {
+  font-size: 1.5rem; /* Larger title */
+  font-weight: bold;
+  color: #e0e0e0; /* Light grey color for title */
+  margin-bottom: 15px; /* Space between title and text */
+  text-transform: uppercase; /* Uppercase text */
+  letter-spacing: 1px; /* Slight spacing between letters */
+}
+
+.custom-card .card-title:hover {
+  color: #FFFFFF; /* White title color on hover */
+}
+
+/* Text Styling */
+.custom-card .card-text {
+  font-size: 1rem; /* Standard text size */
+  color: #e0e0e0; /* Light grey color for description */
+  margin-bottom: 20px; /* Space below text */
+}
+
+.custom-card .card-text:hover {
+  color: #FFFFFF; /* White text on hover */
+}
+
+/* Button Styling */
+.custom-card .btn-primary {
+  background-color: #555555; /* Dark grey button */
+  border: none;
+  padding: 12px 25px; /* Larger padding */
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  border-radius: 30px; /* Fully rounded button */
+  transition: background-color 0.3s ease, transform 0.3s ease; /* Smooth color and scale transition */
+}
+
+.custom-card .btn-primary:hover {
+  background-color: #333333; /* Darker grey on hover */
+  color: #FFFFFF; /* White text on button hover */
+  transform: scale(1.05); /* Slight zoom effect on button hover */
+}
+
+/* Media Queries for Responsiveness */
+@media (max-width: 768px) {
+  /* Reduce font size and padding for smaller screens */
+  .custom-card {
+    padding: 15px;
   }
-  
-  .custom-card:hover {
-    transform: translateY(-10px); /* Lift the card slightly on hover */
-    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3); /* Darker shadow on hover */
-  }
-  
-  /* Image Styling */
-  .custom-card .card-img-top {
-    border-bottom: 4px solid red; /* Red border under the image */
-    transition: transform 0.3s ease; /* Smooth scale transition */
-  }
-  
-  .custom-card .card-img-top:hover {
-    transform: scale(1.05); /* Slight zoom effect on hover */
-  }
-  
-  /* Card Body Styling */
-  .custom-card .card-body {
-    padding: 25px;
-    background-color: #222; /* Darker background for the body */
-    color: #fff; /* White text for readability */
-    position: relative;
-    z-index: 1;
-  }
-  
-  /* Title Styling */
+
   .custom-card .card-title {
-    font-size: 1.5rem; /* Larger title */
-    font-weight: bold;
-    color: #e60000; /* Red color for title */
-    margin-bottom: 15px; /* Space between title and text */
-    text-transform: uppercase; /* Uppercase text */
-    letter-spacing: 1px; /* Slight spacing between letters */
+    font-size: 1.2rem; /* Smaller title for mobile */
   }
-  
-  /* Text Styling */
+
+  .custom-card .card-body {
+    padding: 20px;
+  }
+
   .custom-card .card-text {
-    font-size: 1rem; /* Standard text size */
-    color: #ddd; /* Light gray color for description */
-    margin-bottom: 20px; /* Space below text */
+    font-size: 0.9rem; /* Slightly smaller text */
   }
-  
-  /* Button Styling */
+
   .custom-card .btn-primary {
-    background-color: #e60000; /* Red button */
-    border: none;
-    padding: 12px 25px; /* Larger padding */
-    font-size: 1rem;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    border-radius: 30px; /* Fully rounded button */
-    transition: background-color 0.3s ease, transform 0.3s ease; /* Smooth color and scale transition */
+    padding: 10px 20px; /* Smaller button on mobile */
   }
-  
-  .custom-card .btn-primary:hover {
-    background-color: #b30000; /* Darker red on hover */
-    transform: scale(1.05); /* Slight zoom effect on button hover */
+}
+
+@media (max-width: 480px) {
+  /* Further reduce font size and layout adjustments for small screens */
+  .custom-card .card-title {
+    font-size: 1rem; /* Smaller title for very small screens */
   }
-  
-  /* Hover
-  
+
+  .custom-card .card-body {
+    padding: 15px;
+  }
+
+  .custom-card .card-text {
+    font-size: 0.85rem; /* Even smaller text */
+  }
+
+  .custom-card .btn-primary {
+    padding: 8px 15px; /* Even smaller button */
+  }
+}

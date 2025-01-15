@@ -238,8 +238,8 @@ def view_cart(req):
 
 def qty_incri(req,cid):
     data=cart.objects.get(pk=cid)
-    print(data.qty)
-    print(data.details.stock)
+    # print(data.qty)
+    # print(data.details.stock)
     if data.details.stock > data.qty:
         data.qty+=1
         data.save()
