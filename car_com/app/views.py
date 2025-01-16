@@ -130,7 +130,7 @@ def editpro(req,id):
         return redirect(shop_home)   
     else:
         pro_data=product.objects.get(pk=id)
-        Details = details.objects.get(product=pro_data)       
+        Details = details.objects.filter(product=pro_data)
         return render(req,'shop/edit.html',{'pro_data':pro_data,'Details':Details}) 
     
 
