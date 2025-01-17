@@ -5,26 +5,39 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     {% load static %}
-    <link rel="stylesheet" href="{% static 'add.css' %}">
+    <link rel="stylesheet" href="{% static 'addpro.css' %}">
 </head>
 <body>
 
     
     <div class="all">
-        <h1>ADD PRODUCT</h1>
+        <!-- <h1 style="color: white;">ADD PRODUCT</h1> -->
+        <img src="../../static/cruisegear2br.png" class="logo1" alt="">
         <form action="" method="post" enctype="multipart/form-data">
             {% csrf_token %}
-            <label for="procat">Product Category :</label><br>
-            <select name="cat" class="drop" id="" required>
-                {% for i in data %}
-                    <option value="{{i.categories}}">{{i.categories}}</option>
-                {% endfor %}
-            </select><br><br>
-            <input type="text" name="pid" id=""  class="box" placeholder="pid" required><br><br>
-            <input type="text" name="name" id="" class="box" placeholder="Product Name" required><br><br>
-            <input type="text" name="dis" id="" class="box" placeholder="Discription" required><br><br>
-            <input type="file" name="img"  id="" class="box" required><br><br>
-            <input type="submit" class="btn" value="Add">
+            <div>
+                <label for="procat" style="color: white;">Product Category :</label><br>
+                <select name="cat" class="drop" id="" required>
+                    {% for i in data %}
+                        <option value="{{i.categories}}">{{i.categories}}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div>
+                <input type="text" name="pid" id=""  class="box" placeholder="pid" required>
+            </div>
+            <div>
+                <input type="text" name="name" id="" class="box" placeholder="Product Name" required>
+            </div>
+            <div>
+                <input type="text" name="dis" id="" class="box" placeholder="Discription" required>
+            </div>
+            <div>
+                <input type="file" name="img"  id="" class="box"  required>
+            </div>
+            <div>
+                <input type="submit" class="btn" value="Add">
+            </div>
         </form>    
     </div>  
 

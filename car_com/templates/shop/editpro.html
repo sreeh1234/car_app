@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'editpro.css' %}">
+</head>
+<body>
+        <div class="all">
+            <!-- <h4>EDIT PRODUCT</h4> -->
+            <img src="../../static/cruisegear2br.png" class="logo1" alt="">
+            <form action="" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div>
+                    <input type="text" name="pid" id="" class="box"  placeholder="pid" required value="{{pro_data.pid}}">
+                </div>
+                
+                <div>
+                    <input type="text" name="name" id="" class="box"  placeholder="Product Name" required value="{{pro_data.name}}">
+                </div>
+                
+                <div>
+                    <input type="text" name="dis" id="" class="box"  placeholder="Discription" required value="{{pro_data.dis}}">
+                </div>
+                
+                <div>
+                    <input type="number" name="price" id="" class="box"  placeholder="price" required value="{{Details.price}}">
+                </div>
+                
+                <div>
+                    <input type="number" name="offer_price" id="" class="box"  placeholder="offer_price" required value="{{Details.offer_price}}">
+                </div>
+                
+                <div>
+                    <input type="number" name="stock" id="" class="box"  placeholder="stock" required value="{{Details.stock}}">
+                </div>
+                <div class="box">
+                    <input type="text" name="weight" id="" class="box"  placeholder="weight" required value="{{Details.weight}}">
+                </div>
+                <div>
+                <img src="{{pro_data.img.url}}" alt="" class="img1">
+                </div>
+                <div>
+                    <input type="file" name="img" id="" class="mar" >
+                </div>
+                <div>
+                    <input type="submit" class="btn2" value="update">
+                </div>
+                
+            </form>
+        </div>
+           
+</body>
+</html>

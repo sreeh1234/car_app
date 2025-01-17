@@ -1,8 +1,10 @@
 .box{
     width: 240px;
     height: 45px;
+    
     border-radius: 6px;
     box-sizing: border-box;
+    margin-bottom: 5px;
 }
 
 .btn{
@@ -20,6 +22,7 @@
     
     background-color: rgb(219, 192, 197);
 }   
+
 
 
 .all{
