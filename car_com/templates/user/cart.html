@@ -10,9 +10,9 @@
 <body>
 
     <div class="container">
-        <div class="row" style="gap: 20px;">
+        <div class="row mt-2" style="gap: 20px;">
             {% for i in cart %}
-            <div class="card" style="width:350px;height:650px">
+            <div class="card" style="width:350px;height:550px">
                 <img class="card-img-top" src="{{i.details.product.img.url}}" alt="Card image" style="width:100%;height:400px;">
                 <div class="card-body">
                   <h4 class="card-title">{{i.details.product.name}}</h4>
@@ -21,21 +21,21 @@
                   <p class="card-text">{{i.details.weight}}</p>
                   
                   <p>
-                    <a href="decrement/{{i.pk}}"> - </a>
-                    qty : {{i.qty}}
-                    <a href="increment/{{i.pk}}"> + </a>
-                    <div>
-                        <a href="../cart_buy/{{i.pk}}" class="btn btn-primary">Buy Now</a>
-                    </div>
+                    <a href="decrement/{{i.pk}}"> - </a>Qty:{{i.qty}}<a href="increment/{{i.pk}}"> + </a>
                     
-                </p>
+                    
+                  </p>
                   
                   
                 </div>
             </div>
             {% endfor %} 
         </div>
+        <div class="mt-4" style="text-align: right;">
+            <a href="../cart_buy" class="btn btn-primary">Buy Now</a>
+        </div>
     </div>
+    
     <div class=" mt-4" style="text-align: right;margin-right: 200px;">
         <a href="../user_home" class="btn btn-danger" >Go back</a>
     </div>

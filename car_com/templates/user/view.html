@@ -41,15 +41,15 @@
           {% endfor %} <br>
           {% if Detail2.stock > 0 %}
           <a class="btn btn-primary" href="../addtocart/{{Detail2.pk}}">Add to cart</a>
-          <a class="btn btn-primary" href="../buyproduct/{{Detail2.pk}}">Buy Now</a>
+          <a class="btn btn-primary" href="../buyNow/{{Detail2.pk}}">Buy Now</a>
           {% else %}            
           {% endif %}
-        
+    
+      </div>    
+    </div>
+</div>
+ 
 
-
-      
-  </div>
-  </div>
   <div class=" mt-4" style="text-align: right;margin-right: 200px;">
     <a href="../viewcart" class="btn btn-danger" >Go back</a>
   </div>

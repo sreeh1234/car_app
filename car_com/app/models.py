@@ -24,8 +24,18 @@ class cart(models.Model):
     user=models.ForeignKey(User,on_delete=models.CASCADE)
     qty=models.IntegerField()    
 
+class Address(models.Model):
+    user=models.ForeignKey(User,on_delete=models.CASCADE)
+    name=models.TextField()
+    phn=models.IntegerField()
+    house=models.TextField()
+    street=models.TextField()
+    pin=models.IntegerField()
+    state=models.TextField()          
+
 
 class Buy(models.Model):
+    Address=models.ForeignKey(Address,on_delete=models.CASCADE)
     details=models.ForeignKey(details,on_delete=models.CASCADE)
     user=models.ForeignKey(User,on_delete=models.CASCADE)
     qty=models.IntegerField()
@@ -34,4 +44,5 @@ class Buy(models.Model):
 
 class Otp(models.Model):
     user=models.ForeignKey(User,on_delete=models.CASCADE)
-    otp=models.TextField()        
+    otp=models.TextField()  
+
