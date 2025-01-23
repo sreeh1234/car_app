@@ -16,7 +16,7 @@
                 {% for i in cart %}
                 <div class="row">
                     <div class="col-lg-6">
-                        <img src="{{i.pro.product.img.url}}" alt="" width="300px" height="300px">
+                        <img src="{{i.details.product.img.url}}" alt="" width="300px" height="300px">
                     </div>
                     <div class="col-lg-6">
                         <h3>{{i.details.product.name}}</h3>
@@ -41,8 +41,8 @@
                   <a href="../../../address">Add new address + </a>
                 </div>
 
-                <h3 class="price">Total is {{price}} rupees</h3>
-                <h3 class="offerPrice">The total amount payable is {{total}} rupees</h3>
+                <h3>Total Amount : ₹{{price}}</h3>
+                <!-- <h3 class="offerPrice">The total amount payable is {{total}} rupees</h3> -->
 
                 <button type="submit" class="btn btn-primary">CONFIRM</button>
               </form>   

@@ -7,6 +7,9 @@ from django.contrib.auth.models import User
 from django.core.mail import send_mail
 from django.conf import settings
 import random
+import razorpay
+import json
+from django.views.decorators.csrf import csrf_exempt
 
 # Create your views here.
 
@@ -227,9 +230,16 @@ def add_to_cart(req,pid):
         Cart.qty+=1
         Cart.save()
     except:    
-        data=cart.objects.create(details=detail,user=user,qty=1)
-        data.save()
+        if detail.stock>0:
+            data=cart.objects.create(details=detail,user=user,qty=1)
+            data.save()
+            detail.stock-=1
+            detail.save()
+    if detail.stock>0:
+        detail.stock-=1
+        detail.save()        
     return redirect(view_cart)
+
 
 def view_cart(req):
     user=User.objects.get(username=req.session['user'])
@@ -281,13 +291,16 @@ def buyNow(req,pid):
 
 
 def buy_product(req,pid,address):
-    detail=details.objects.get(pk=pid)
-    user=User.objects.get(username=req.session['user'])
-    qty=1
-    price=detail.offer_price
-    buy=Buy.objects.create(details=detail,user=user,qty=qty,t_price=price,address=Address.objects.get(pk=address))
-    buy.save()
-    return redirect(user_bookings)
+    if 'user' in req.session:
+        Products=details.objects.get(pk=pid)
+        user=User.objects.get(username=req.session['user'])
+        qty=1
+        price=Products.offer_price
+        buy=Buy.objects.create(details=Products,user=user,qty=qty,t_price=price,Address=Address.objects.get(pk=address))
+        buy.save()
+        return redirect(user_bookings)
+    else:
+        return redirect(car_com_login)
 
 
     
@@ -346,18 +359,85 @@ def orderSummary(req,Products,data):
         Products=details.objects.get(pk=Products)
         user=User.objects.get(username=req.session['user'])
         data=Address.objects.filter(user=user)
-        
         if req.method == 'POST':
             address=req.POST['address']
+            pay=req.POST['pay']
             addr=Address.objects.get(user=user,pk=address)
+            print(pay)
         else:
             categories=category.objects.all()
             return render(req,'user/ordersummary.html',{'Products':Products,'data':data,'categories':categories})
-        print(Products.pk)
+        # print(Products.pk)
         addr=addr.pk
-        return redirect("payment" ,pid=Products.pk,address=addr)    
+        if pay == 'paynow':
+            return redirect("",pid=Products.pk,address=addr)    
+        else:
+            return redirect("payment")    
     else:
         return redirect(car_com_login)
+    
+def order_payment(req,pid):
+    if 'user' in req.session:
+        user = User.objects.get(username=req.session['user'])
+        name = user.first_name
+        data=details.objects.get(pk=pid)
+        amount = data.offer_price
+        client = razorpay.Client(auth=(settings.RAZORPAY_KEY_ID, settings.RAZORPAY_KEY_SECRET))
+        razorpay_order = client.order.create(
+            {"amount": int(amount) * 100, "currency": "INR", "payment_capture": "1"}
+        )
+        order_id=razorpay_order['id']
+        order = Order.objects.create(
+            name=name, amount=amount, provider_order_id=order_id
+        )
+        order.save()
+        return render(
+            req,
+            "user/payment.html",
+            {
+                "callback_url": "http://" + "127.0.0.1:8000" + "razorpay/callback",
+                "razorpay_key": settings.RAZORPAY_KEY_ID,
+                "order": order,
+            },
+        )
+    else:
+        return render(car_com_login)
+
+@csrf_exempt
+def callback(request):
+    def verify_signature(response_data):
+        client = razorpay.Client(auth=(settings.RAZORPAY_KEY_ID, settings.RAZORPAY_KEY_SECRET))
+        return client.utility.verify_payment_signature(response_data)
+
+    if "razorpay_signature" in request.POST:
+        payment_id = request.POST.get("razorpay_payment_id", "")
+        provider_order_id = request.POST.get("razorpay_order_id", "")
+        signature_id = request.POST.get("razorpay_signature", "")
+        order = Order.objects.get(provider_order_id=provider_order_id)
+        order.payment_id = payment_id
+        order.signature_id = signature_id
+        order.save()
+        if not verify_signature(request.POST):
+            order.status = PaymentStatus.SUCCESS
+            order.save()
+            return render(request, "callback.html", context={"status": order.status})  
+        else:
+            order.status = PaymentStatus.FAILURE
+            order.save()
+            return render(request, "callback.html", context={"status": order.status}) 
+
+    else:
+        payment_id = json.loads(request.POST.get("error[metadata]")).get("payment_id")
+        provider_order_id = json.loads(request.POST.get("error[metadata]")).get(
+            "order_id"
+        )
+        order = Order.objects.get(provider_order_id=provider_order_id)
+        order.payment_id = payment_id
+        order.status = PaymentStatus.FAILURE
+        order.save()
+        return render(request, "callback.html", context={"status": order.status})  
+
+
 
 def address(req):
     if 'user' in req.session:

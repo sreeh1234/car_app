@@ -28,7 +28,7 @@ urlpatterns=[
     path('viewcart',views.view_cart),
     path('increment/<cid>',views.qty_incri),
     path('decrement/<cid>',views.qty_dec),
-    path('buyproduct/<pid>',views.buy_product),
+    path('buyproduct/<pid>/<address>',views.buy_product,name="buyproduct"),
     path('userbookings',views.user_bookings),
     
     path('buyNow/<pid>',views.buyNow),
@@ -37,6 +37,7 @@ urlpatterns=[
     path('address',views.address),
     path('delete_address/<pid>',views.delete_address),
     path('cart_buy',views.cart_buy),
+    path('order_payment/<pid>/<address>',views.order_payment,name="payment"),
     
 
 ]
