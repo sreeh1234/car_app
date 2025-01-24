@@ -29,15 +29,16 @@
                     <a href="../../../address">Add new address + </a>
                 </div>
                 <h3>{{Products.product.name}}</h3>
-                <h4 class="price" style="text-decoration: line-through;">₹{{Products.price}}</h4>
-                <h4 class="offer_Price" style="color: green;">₹{{Products.offer_price}}</h4>
+                <h4  style="text-decoration: line-through;">₹{{Products.price}}</h4>
+                <h4  style="color: green;">₹{{Products.offer_price}}</h4>
+                <h5 style="color: red;">Payment method :</h5>
+                <input type="radio" name="pay" id="paynow" value="paynow" required>
+                <label for="paynow">Pay now</label>
+                <input type="radio" name="pay" id="paylater" value="paylater" required>
+                <label for="paylater">Pay later</label>
                 <div>
-                    <label for="payout">PayNow</label>
-                    <input type="radio" name="pay" id="paynow" value="PayNow">
-                    <label for="payout">COD</label>
-                    <input type="radio" name="pay" id="cod" value="COD">
+                  <button type="submit" class="btn btn btn-primary">CONFIRM</button>
                 </div>
-                <button type="submit" class="btn btn-primary">CONFIRM</button>
               </form>             
             </div>
         </div>

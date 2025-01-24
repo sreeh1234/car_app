@@ -50,3 +50,8 @@ body{
     no-repeat center center fixed;
     background-size:cover;
 } 
+
+.img1{
+    width: 100px;
+    height: 100px;
+}

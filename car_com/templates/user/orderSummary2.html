@@ -13,17 +13,17 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-8">
-                {% for i in cart %}
+                {% for i in Cart %}
                 <div class="row">
                     <div class="col-lg-6">
                         <img src="{{i.details.product.img.url}}" alt="" width="300px" height="300px">
                     </div>
                     <div class="col-lg-6">
                         <h3>{{i.details.product.name}}</h3>
-                        <h3>{{i.qty}}</h3>
-                        <h3>{{i.pro.price}}</h3>
-                        <h3>{{i.pro.offer_price}}</h3>
-                        <h3>{{i.price}}</h3>
+                        <p>Qty : {{i.qty}}</p>
+                        <h5 style="text-decoration: line-through;">₹{{i.details.price}}</h5>
+                        <h5 style="color: green;">₹{{i.details.offer_price}}</h5>
+                        <!-- <h3>{{i.details.price}}</h3> -->
                     </div>
                 </div>
                 {% endfor %}
@@ -42,9 +42,14 @@
                 </div>
 
                 <h3>Total Amount : ₹{{price}}</h3>
-                <!-- <h3 class="offerPrice">The total amount payable is {{total}} rupees</h3> -->
-
-                <button type="submit" class="btn btn-primary">CONFIRM</button>
+                <h5 style="color: red;">Payment method :</h5>
+                <input type="radio" name="pay" id="paynow" value="paynow" required>
+                <label for="paynow">Pay now</label>
+                <input type="radio" name="pay" id="paylater" value="paylater" required>
+                <label for="paylater">Pay later</label>
+                <div>
+                  <button type="submit" class="btn btn btn-primary">CONFIRM</button>
+                </div>
               </form>   
               <!-- <a href="../payment2">CONFIRM</a> -->
             </div>
