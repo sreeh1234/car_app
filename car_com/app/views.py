@@ -209,7 +209,8 @@ def otp_confirmation(req):
 def user_home(req):
     if 'user' in req.session:
         products=product.objects.all()
-        return render(req,'user/home.html',{'product':products})
+        data=category.objects.all()
+        return render(req,'user/home.html',{'product':products,'data':data})
     else:
         return redirect(car_com_login)
     

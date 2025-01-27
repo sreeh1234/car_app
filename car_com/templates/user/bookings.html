@@ -4,42 +4,73 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>user_bookings</title>
+    {% load static %}
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="{% static 'booking.css' %}">
 </head>
 <body>
-    <div class="container mt-5">
-        <h3 class="text-center mb-4" >BOOKING HISTORY</h3>
-        <div class="row d-flex">
-            {% for i in bookings %}
-            <div class="col-lg-12 d-flex" style="text-align: center;">
-                <div>
-                <img src="{{i.details.product.img.url}}" style="height: 400px; width:400px;padding: 10%; " alt="">
-                </div>
-                <div style="width: 450px; margin-top:8vh;text-align: left;">
-                <div>
-                    <h6 style="color:grey;">PRODUCT DETAILS</h6>
-                    <p>{{i.details.product.name}}</p>
-                    <p>Total Price : {{i.t_price}}</p>
-                    <p>quantity : {{i.qty}}</p>
-                </div>
-                <div>
-                    <h6 style="color:grey;">CUSTOMER DETAILS</h6>
-                    <p>{{i.Address.name}}</p>
-                    <p>{{i.Address.phn}}</p>
-                    
-                </div>
-                </div>
+
+
+    <nav class="navbar navbar-expand-sm">
+        <div class="container-fluid">
+            <img src="../../static/cruisegear2br.png" style="width: 165px;height: 140px;" alt="">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="collapsibleNavbar">
+                <ul class="navbar-nav ms-auto me-5 ">
+                    <li class="nav-item"><a class="nav-link fcolor" href="user_home">HOME</a></li>
+                    <li class="nav-item"><a class="nav-link fcolor" href="viewcart">VIEW CART</a></li>
+                    <li class="nav-item"><a class="nav-link fcolor" href="../userbookings">BOOKINGS</a></li>
+                    <li class="nav-item"><a class="nav-link fcolor" href="logout">LOGOUT</a></li>
+                </ul>
             </div>
-           
-            <!-- {% empty %}
-            <p class="text-center mt-5">No data available .</p> -->
-            {% endfor %}
-            
+        </div>
+    </nav> 
+
+
+    <div class="order-details-container">
+        <div class="container">
+            <h2 class="order-title text-center mb-5">Booking Details</h2>
+            <div class="row">
+                {% for i in bookings %}
+                    <div class="col-lg-12">
+                        <div class="order-card mb-4">
+                            <div class="order-card-header">
+                                <h4 class="order-product-name">{{i.details.product.name}}</h4>
+                                <h5 class="order-price text-success">₹{{i.t_price}}</h5>
+                            </div>
+                            <div class="order-card-body">
+                                <div class="order-item-details">
+                                    <img src="{{i.details.product.img.url}}" class="order-item-image" alt="">
+                                    <div class="order-item-info">
+                                        <!-- <p><strong>User Details:</strong></p> -->
+
+                                        <p><strong>Quantity:</strong> {{i.qty}}</p>
+                                        <p><strong>User Name:</strong> {{i.user.first_name}}</p>
+                                        <p><strong>Email:</strong> {{i.user.email}}</p>
+                                        <p><strong>Phone No:</strong> {{i.Address.phn}}</p>
+
+                                        <p><strong>Shipping Address:</strong></p>
+                                        <p>{{i.Address.name}}, {{i.Address.house}}, {{i.Address.street}}, {{i.Address.pin}}, {{i.Address.state}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="order-card-footer text-end">
+                                <a href="../user_home" class="btn btn-danger">Go back</a>
+                            </div>
+                        </div>
+                    </div>
+                {% empty %}
+                    <p class="text-center mt-5">No data available</p> 
+                {% endfor %}
+            </div>
         </div>
     </div>
-    <div class=" mt-4" style="text-align: right;margin-right: 200px;">
-        <a href="../user_home" class="btn btn-danger" >Go back</a>
-    </div>
+
+
+
 </body>
 </html>
+

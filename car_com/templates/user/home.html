@@ -38,6 +38,20 @@
           <li class="nav-item">
             <a class="nav-link color" href="viewcart">VIEW CART</a>
           </li>
+          <div class="dropdown">
+            <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown">
+              Dropdown button
+            </button>
+            <ul class="dropdown-menu">
+            {% for i in data %}  
+              <li><a class="dropdown-item text-dark" href="#">{{i.categories}}</a></li>
+            {% endfor %}
+            </ul>
+          </div>
+          
+          <li>
+            <a class="nav-link color" href="../userbookings">BOOKINGS</a>
+          </li>
           <li class="nav-item">
             <a class="nav-link color" href="logout">LOGOUT</a>
           </li>
