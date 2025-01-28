@@ -20,9 +20,20 @@
                 <ul class="navbar-nav ms-auto me-5">
                   <li class="nav-item"><a class="nav-link fcolor" href="user_home">HOME</a></li>
                   <li class="nav-item"><a class="nav-link fcolor" href="viewcart">VIEW CART</a></li>
-                  <!-- <li class="nav-item"><a class="nav-link fcolor" href="../userbookings">BOOKINGS</a></li> -->
+                  <div class="dropdown">
+                    <button type="button" class="btn btn-dark dropdown-toggle" data-bs-toggle="dropdown">
+                      CATEGORIES
+                    </button>
+                    <ul class="dropdown-menu">
+                    {% for i in data %}  
+                      <li><a class="dropdown-item text-dark" href="../../view_products/{{i.pk}}">{{i.categories}}</a></li>
+                    {% endfor %}
+                    </ul>
+                  </div>
+                  <li class="nav-item"><a class="nav-link fcolor" href="../../userbookings">BOOKINGS</a></li>
                   <li class="nav-item"><a class="nav-link fcolor" href="logout">LOGOUT</a></li>
                 </ul>
+                
             </div>
         </div>
     </nav>

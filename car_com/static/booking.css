@@ -23,6 +23,12 @@ body {
     padding: 20px;
 }
 
+.navbar-nav .nav-link:hover {
+    color: rgb(230, 4, 4);
+    background-color: rgb(39, 37, 38);
+    border-radius: 4px;
+}
+
 .fcolor{
     color: white;
 }

@@ -1,0 +1,125 @@
+.custom-card {
+    border-radius: 8px;
+    overflow: hidden;
+    background-color: rgb(37, 37, 37);
+    color: #e0e0e0;
+    transition: all 0.3s ease;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    margin-bottom: 20px;
+}
+
+.custom-card .card-img-top {
+    width: 100%;
+    height: 350px;
+    object-fit: cover;
+}
+
+.custom-card .card-body {
+    padding: 20px;
+    background-color: rgb(37, 37, 37);
+    color: white;
+    position: relative;
+    z-index: 1;
+    font-size: 1rem;
+    line-height: 1.4;
+}
+
+.custom-card .card-title {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #e0e0e0;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.custom-card .card-text {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #e0e0e0;
+    margin-bottom: 15px;
+}
+
+.font {
+    font-family: "Fontdiner Swanky", serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 3vh;
+    color: white;
+}
+
+.color {
+    color: white;
+}
+
+.nav1 {
+    height: 120px;
+    background-color: rgb(39, 37, 38);
+}
+
+
+.navbar-nav .nav-link:hover {
+    color: rgb(230, 4, 4);
+    background-color: rgb(39, 37, 38);
+    border-radius: 4px;
+}
+
+.btn1 {
+    background-color: rgb(230, 4, 4);
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    text-transform: uppercase;
+}
+
+body {
+    background-color: black;
+}
+
+@media (max-width: 1024px) {
+    .custom-card {
+        width: 100%;
+        margin: 10px 0;
+    }
+}
+
+@media (max-width: 768px) {
+    .custom-card .card-body {
+        padding: 15px;
+    }
+
+    .custom-card .card-title {
+        font-size: 1rem;
+    }
+
+    .custom-card .card-text {
+        font-size: 0.9rem;
+    }
+
+    .font {
+        font-size: 6vw;
+    }
+
+    .btn1 {
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .custom-card .card-title {
+        font-size: 1rem;
+    }
+
+    .custom-card .card-text {
+        font-size: 0.8rem;
+    }
+
+    .font {
+        font-size: 8vw;
+    }
+
+    .nav1 {
+        padding: 10px 0;
+    }
+}

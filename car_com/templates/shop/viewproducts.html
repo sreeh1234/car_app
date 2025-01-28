@@ -57,10 +57,10 @@
                             <span style="text-decoration: line-through;">₹{{ i.price }}</span>
                         </p>
                         <div class="d-flex justify-content-center gap-3">
-                            <a href="edit_pro/{{ i.product.pk }}" class="btn btn-outline-dark btn-sm">
+                            <a href="../edit_product/{{ i.product.pk }}" class="btn btn-outline-dark btn-sm">
                                 <i class="fas fa-edit"></i> Edit
                             </a>
-                            <a href="delete_pro/{{ i.product.pk }}" class="btn btn-outline-dark btn-sm"
+                            <a href="../delete_product/{{ i.product.pk }}" class="btn btn-outline-dark btn-sm"
                                 onclick="return confirm('Are you sure you want to delete this product?')">
                                 <i class="fas fa-trash"></i> Delete
                             </a>
