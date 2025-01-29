@@ -44,12 +44,12 @@
   line-height: 1.4;
 }
 
-.font {
-  font-family: "Fontdiner Swanky", serif;
-  font-weight: 400;
+.fnt {
+  font-family: "Orbitron", serif;
+  font-optical-sizing: auto;
+  font-weight: 600;
   font-style: normal;
-  font-size: 3vh;
-  color: white;
+  
 }
 
 .color {
@@ -59,6 +59,12 @@
 .nav1 {
   height: 120px;
   background-color: rgb(39, 37, 38);
+}
+
+.navbar-nav .nav-link:hover {
+  color: rgb(230, 4, 4);
+  background-color: rgb(39, 37, 38);
+  border-radius: 4px;
 }
 
 .btn1 {

@@ -23,7 +23,7 @@
                 <a class="nav-link fcolor " href="shop_home">HOME</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link fcolor" href="add product">ADD PRODUCT</a>
+                <a class="nav-link fcolor" href="add_product">ADD PRODUCT</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link fcolor" href="cat">ADD CATEGORY</a>
@@ -40,9 +40,11 @@
     </nav> 
 
     <form action="" method="post" style="margin-top: 20px;">
+      <img src="../../static/cruisegear2br.png" class="logo1" alt="Logo">
+      <h4>ADD CATEGORY</h4>
         {% csrf_token %}
-        <label for="">Add Category :</label>
-        <input type="text" name="category" id="cid">
+        <!-- <label for="">Add Category :</label> -->
+        <input type="text" name="category" id="cid" placeholder="Category Here ....">
         <input type="submit" value="Add">
     </form>
 

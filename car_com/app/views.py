@@ -242,6 +242,14 @@ def add_to_cart(req,pid):
         detail.save()        
     return redirect(view_cart)
 
+def view_product(req,id):
+    if 'user' in req.session:
+        category1 = category.objects.get(pk=id)
+        detail = details.objects.filter(product__categories=category1)
+        return render(req, 'user/viewproduct.html', {'category': category1,'detail': detail})
+    else:
+         return redirect(car_com_login)
+
 
 def view_cart(req):
     user=User.objects.get(username=req.session['user'])

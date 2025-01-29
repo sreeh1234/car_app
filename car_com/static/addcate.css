@@ -24,6 +24,15 @@ body {
     padding: 20px;
 }
 
+.logo1 {
+    height: 100px;
+    width: auto;
+    margin-bottom: 20px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
 form {
     max-width: 400px;
     margin-top: 30px;
