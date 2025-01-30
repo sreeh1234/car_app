@@ -50,43 +50,30 @@
         <form action="" method="post" enctype="multipart/form-data">
             {% csrf_token %}
             <div>
-                <input type="text" name="pid" id="" class="box" placeholder="PID" required value="{{pro_data.pid}}">
+                <input type="text" name="pid" id="" class="box" placeholder="PID" required value="{{data.pid}}">
             </div>
 
             <div>
-                <input type="text" name="name" id="" class="box" placeholder="Product Name" required value="{{pro_data.name}}">
+                <input type="text" name="name" id="" class="box" placeholder="Product Name" required value="{{data.name}}">
             </div>
 
             <div>
-                <input type="text" name="dis" id="" class="box" placeholder="Description" required value="{{pro_data.dis}}">
+                <input type="text" name="dis" id="" class="box" placeholder="Description" required value="{{data.dis}}">
             </div>
 
             <div>
-                <input type="number" name="price" id="" class="box" placeholder="Price" required value="{{Details.price}}">
-            </div>
-
-            <div>
-                <input type="number" name="offer_price" id="" class="box" placeholder="Offer Price" required value="{{Details.offer_price}}">
-            </div>
-
-            <div>
-                <input type="number" name="stock" id="" class="box" placeholder="Stock" required value="{{Details.stock}}">
-            </div>
-
-            <div class="box">
-                <input type="text" name="weight" id="" class="box" placeholder="Weight" value="{{Details.weight}}">
-            </div>
-
-            <div>
-                <img src="{{pro_data.img.url}}" alt="Product Image" class="img1">
+                <img src="{{data.img.url}}" alt="Product Image" class="img1">
             </div>
 
             <div>
                 <input type="file" name="img" id="" class="mar">
             </div>
-
+            <div>
+                <a href="../editdetails/{{data.pk}}" class="btn btn-secondary" >Edit Details</a>
+            </div>
             <div>
                 <input type="submit" class="btn2" value="Update">
+
             </div>
 
         </form>

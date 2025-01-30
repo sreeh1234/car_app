@@ -11,7 +11,7 @@
 </head>
 <body>
 
-    <!-- Navbar -->
+    
     <nav class="navbar navbar-expand-sm">
         <div class="container-fluid">
             <img src="../../static/cruisegear2br.png" style="width: 165px;height: 140px;" alt="">
@@ -20,7 +20,7 @@
             </button>
             <div class="collapse navbar-collapse" id="collapsibleNavbar">
                 <ul class="navbar-nav ms-auto me-5">
-                    <li class="nav-item"><a class="nav-link fcolor" href="shop_home">HOME</a></li>
+                    <li class="nav-item"><a class="nav-link fcolor" href="user_home">HOME</a></li>
                     <li class="nav-item"><a class="nav-link fcolor" href="../viewcart">VIEW CART</a></li>  
                     <li class="nav-item"><a class="nav-link fcolor" href="../userbookings">BOOKINGS</a></li>
                     <li class="nav-item"><a class="nav-link fcolor" href="logout">LOGOUT</a></li>
@@ -29,16 +29,16 @@
         </div>
     </nav>
 
-    <!-- Product Details -->
+    
     <div class="order-details-container">
         <div class="container">
             <div class="row">
-                <!-- Product Image -->
+                
                 <div class="col-lg-6">
                     <img src="{{data.img.url}}" alt="" class="order-item-image">
                 </div>
 
-                <!-- Product Information -->
+                
                 <div class="col-lg-6 mt-3">
                     <h3 class="order-product-name">{{data.name}}</h3>
                     <h6 class="text-decoration-line-through">₹{{Detail2.price}}</h6>
@@ -50,7 +50,7 @@
                         <h4>OUT OF STOCK </h4>
                     {% endif %}
 
-                    <!-- Weight Options -->
+                    
                     {% for j in Detail %}
                     <div class="order-card-body">
                         <label class="order-item-info" for="">
@@ -60,7 +60,7 @@
                     </div>
                     {% endfor %}
 
-                    <!-- Action Buttons -->
+                    
                     {% if Detail2.stock > 0 %}
                     <div class="order-card-footer">
                         <a class="btn btn-primary" href="../addtocart/{{Detail2.pk}}">Add to cart</a>
@@ -72,7 +72,7 @@
         </div>
     </div>
 
-    <!-- Go Back Button -->
+    
     <div class="mt-4 text-end me-5">
         <a href="../viewcart" class="btn btn-danger">Go back</a>
     </div>

@@ -110,33 +110,66 @@ def detail(req):
         data=product.objects.all()
         return render(req,'shop/details.html',{'data':data})    
     
+# def editpro(req,id):
+#     if req.method=='POST':
+#         pid=req.POST['pid']
+#         name=req.POST['name']
+#         dis=req.POST['dis']
+#         price = req.POST['price']
+#         offer_price = req.POST['offer_price']
+#         stock = req.POST['stock']
+#         weight = req.POST['weight']
+#         img=req.FILES.get('img')
+#         pro_data=product.objects.get(pk=id)
+#         if img:
+#             product.objects.filter(pk=id).update(pid=pid,name=name,dis=dis)
+#             data=product.objects.get(pk=id)
+#             data.img=img
+#             data.save()
+#         else:
+#              product.objects.filter(pk=id).update(pid=pid,name=name,dis=dis)
+#         # return redirect(shop_home)  
+
+#         details.objects.filter(product=pro_data).update(price=price, offer_price=offer_price, stock=stock,weight=weight)
+#         return redirect(shop_home)   
+#     else:
+#         pro_data=product.objects.get(pk=id)
+#         Details = details.objects.get(product=pro_data)
+#         return render(req,'shop/editpro.html',{'pro_data':pro_data,'Details':Details}) 
+
 def editpro(req,id):
     if req.method=='POST':
         pid=req.POST['pid']
         name=req.POST['name']
         dis=req.POST['dis']
-        price = req.POST['price']
-        offer_price = req.POST['offer_price']
-        stock = req.POST['stock']
-        weight = req.POST['weight']
         img=req.FILES.get('img')
-        pro_data=product.objects.get(pk=id)
         if img:
             product.objects.filter(pk=id).update(pid=pid,name=name,dis=dis)
             data=product.objects.get(pk=id)
             data.img=img
             data.save()
         else:
-             product.objects.filter(pk=id).update(pid=pid,name=name,dis=dis)
-        # return redirect(shop_home)  
-
-        details.objects.filter(product=pro_data).update(price=price, offer_price=offer_price, stock=stock,weight=weight)
-        return redirect(shop_home)   
+            product.objects.filter(pk=id).update(pid=pid,name=name,dis=dis)
+        return redirect(shop_home)
     else:
-        pro_data=product.objects.get(pk=id)
-        Details = details.objects.get(product=pro_data)
-        return render(req,'shop/editpro.html',{'pro_data':pro_data,'Details':Details}) 
+        data=product.objects.get(pk=id)      
+        return render(req,'shop/editpro.html',{'data':data})
     
+def editdetails(req,pid):
+    if req.method == 'POST':
+        Details = req.POST['d_id']
+        # print(Details)
+        # pro=req.POST['pid']
+        weight=req.POST['weight']
+        price=req.POST['price']
+        offer_price=req.POST['offer_price']
+        stock=req.POST['stock']
+        details.objects.filter(pk=Details).update(product=product.objects.get(pk=pid),weight=weight,price=price,offer_price=offer_price,stock=stock)
+        return redirect(shop_home)
+    else:      
+        data=details.objects.filter(product=pid)
+        data1=product.objects.get(pk=pid)
+        return render(req,'shop/editdet.html',{'data':data,'data1':data1})    
 
 
 def bookings(req):
@@ -215,13 +248,17 @@ def user_home(req):
         return redirect(car_com_login)
     
 def viewpro(req,pid):
-    data=product.objects.get(pk=pid) 
-    Detail=details.objects.filter(product=pid)
-    Detail2=details.objects.get(product=pid,pk=Detail[0].pk)
-    if req.GET.get('dis'):
-            dis=req.GET.get('dis')
-            Detail2=details.objects.get(product=pid,pk=dis)
-    return render(req,'user/view.html',{'data':data,'Detail':Detail,'Detail2':Detail2})    
+    if 'user' in req.session:
+        data=product.objects.get(pk=pid) 
+        Detail=details.objects.filter(product=pid)
+        Detail2=details.objects.get(product=pid,pk=Detail[0].pk)
+        categories=category.objects.all()
+        if req.GET.get('dis'):
+                dis=req.GET.get('dis')
+                Detail2=details.objects.get(product=pid,pk=dis)
+        return render(req,'user/view.html',{'data':data,'Detail':Detail,'Detail2':Detail2,'categories':categories})
+    else:
+        return redirect(car_com_login)    
 
 
 def add_to_cart(req,pid):
