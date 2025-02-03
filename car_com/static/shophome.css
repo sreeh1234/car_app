@@ -55,8 +55,30 @@
 .nav1 {
     height: 120px;
     background-color: rgb(39, 37, 38);
+    transition: height 0.3s ease-in-out; 
 }
 
+.navbar-collapse {
+    transition: max-height 0.5s ease-out;
+}
+
+.navbar-toggler-icon {
+    background-color: white;  
+    border: 1px solid white;  
+}
+
+
+.navbar-collapse.collapsing {
+    max-height: 0;
+}
+
+.navbar-collapse.collapse.show {
+    max-height: 500px; 
+}
+
+.navbar-nav .nav-link {
+    padding: 10px 20px;
+}
 
 .navbar-nav .nav-link:hover {
     color: rgb(230, 4, 4);
@@ -105,6 +127,11 @@ body {
     .btn1 {
         width: 100%;
     }
+
+    /* Adjust navbar height when menu is expanded on smaller screens */
+    .nav1 {
+        height: auto; /* Allow height to adjust dynamically */
+    }
 }
 
 @media (max-width: 480px) {
@@ -124,5 +151,3 @@ body {
         padding: 10px 0;
     }
 }
-
-
