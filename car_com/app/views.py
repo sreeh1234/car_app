@@ -109,33 +109,7 @@ def detail(req):
     else:
         data=product.objects.all()
         return render(req,'shop/details.html',{'data':data})    
-    
-# def editpro(req,id):
-#     if req.method=='POST':
-#         pid=req.POST['pid']
-#         name=req.POST['name']
-#         dis=req.POST['dis']
-#         price = req.POST['price']
-#         offer_price = req.POST['offer_price']
-#         stock = req.POST['stock']
-#         weight = req.POST['weight']
-#         img=req.FILES.get('img')
-#         pro_data=product.objects.get(pk=id)
-#         if img:
-#             product.objects.filter(pk=id).update(pid=pid,name=name,dis=dis)
-#             data=product.objects.get(pk=id)
-#             data.img=img
-#             data.save()
-#         else:
-#              product.objects.filter(pk=id).update(pid=pid,name=name,dis=dis)
-#         # return redirect(shop_home)  
 
-#         details.objects.filter(product=pro_data).update(price=price, offer_price=offer_price, stock=stock,weight=weight)
-#         return redirect(shop_home)   
-#     else:
-#         pro_data=product.objects.get(pk=id)
-#         Details = details.objects.get(product=pro_data)
-#         return render(req,'shop/editpro.html',{'pro_data':pro_data,'Details':Details}) 
 
 def editpro(req,id):
     if req.method=='POST':
@@ -193,29 +167,78 @@ def delete(req,pid):
 # -------------------------------------------------------------------------------
 
 
+# def register(req):
+#     if req.method=='POST':
+#         uname=req.POST['uname']
+#         email=req.POST['email']
+#         pswd=req.POST['pswd']
+#         try:
+#             data=User.objects.create_user(first_name=uname,email=email,username=email,password=pswd)
+#             data.save()
+#             otp=""
+#             for i in range(6):
+#                 otp+=str(random.randint(0,9))
+#             msg=f'Your registration is completed otp: {otp}'
+#             otp=Otp.objects.create(user=data,otp=otp)
+#             otp.save()
+#             send_mail('Registration',msg, settings.EMAIL_HOST_USER, [email])
+#             return redirect(otp_confirmation)
+#         except:
+#             messages.warning(req,'Email already exist')
+#             return redirect(register)
+#     else:
+#         return render(req,'user/register.html')
+
+
+# def otp_confirmation(req):
+#     if req.method == 'POST':
+#         uname = req.POST.get('uname')
+#         user_otp = req.POST.get('otp')
+#         try:
+#             user = User.objects.get(username=uname)
+#             generated_otp = Otp.objects.get(user=user)
+    
+#             if generated_otp.otp == user_otp:
+#                 generated_otp.delete()
+#                 return redirect(car_com_login)
+#             else:
+#                 messages.warning(req, 'Invalid OTP')
+#                 return redirect(otp_confirmation)
+#         except User.DoesNotExist:
+#             messages.warning(req, 'User does not exist')
+#             return redirect(otp_confirmation)
+#         except Otp.DoesNotExist:
+#             messages.warning(req, 'OTP not found or expired')
+#             return redirect(otp_confirmation)
+#     return render(req, 'user/otp.html')
+
+
+
+
 def register(req):
-    if req.method=='POST':
-        uname=req.POST['uname']
-        email=req.POST['email']
-        pswd=req.POST['pswd']
+    if req.method == 'POST':
+        uname = req.POST['uname']
+        email = req.POST['email']
+        pswd = req.POST['pswd']
         try:
-            data=User.objects.create_user(first_name=uname,email=email,username=email,password=pswd)
+            data = User.objects.create_user(first_name=uname, email=email, username=email, password=pswd)
             data.save()
-            otp=""
+            otp = ""
             for i in range(6):
-                otp+=str(random.randint(0,9))
-            msg=f'Your registration is completed otp: {otp}'
-            otp=Otp.objects.create(user=data,otp=otp)
+                otp += str(random.randint(0, 9))
+            msg = f'Your registration is completed otp: {otp}'
+            otp = Otp.objects.create(user=data, otp=otp)
             otp.save()
-            send_mail('Registration',msg, settings.EMAIL_HOST_USER, [email])
+            send_mail('Registration', msg, settings.EMAIL_HOST_USER, [email])
+            messages.success(req, "Registration successful. Please check your email for OTP.")
             return redirect(otp_confirmation)
         except:
-            messages.warning(req,'Email already exist')
+            messages.warning(req, 'Email already exists')
             return redirect(register)
     else:
-        return render(req,'user/register.html')
+        return render(req, 'user/register.html')
 
-
+    
 def otp_confirmation(req):
     if req.method == 'POST':
         uname = req.POST.get('uname')
@@ -237,7 +260,6 @@ def otp_confirmation(req):
             messages.warning(req, 'OTP not found or expired')
             return redirect(otp_confirmation)
     return render(req, 'user/otp.html')
-
 
 def user_home(req):
     if 'user' in req.session:

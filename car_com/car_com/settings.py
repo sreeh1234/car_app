@@ -131,8 +131,8 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_USE_TLS = True
 EMAIL_PORT = 587
-EMAIL_HOST_USER = 'sreehapzzz@gmail.com'
-EMAIL_HOST_PASSWORD = 'whev ecco krlz qknk'
+EMAIL_HOST_USER = 'cruisegearretrofit@gmail.com'
+EMAIL_HOST_PASSWORD = 'oevj ixzb ltdi erpr'
 
 RAZORPAY_KEY_ID = 'rzp_test_24689WalrA8zZjNMVG'
 RAZORPAY_KEY_SECRET = 'VSks8aj2468MWMdAB2mAjoM6YMpO'

@@ -75,6 +75,7 @@
 
 body {
     background-color: black;
+    /* padding-top: 120px; */
 }
 
 @media (max-width: 1024px) {

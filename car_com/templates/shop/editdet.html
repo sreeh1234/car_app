@@ -13,12 +13,12 @@
     
     <div class="all">
         <img src="../../static/cruisegear2br.png" class="logo1" alt="Logo">
-        <h4>EDIT PRODUCT</h4>
+        <h4>EDIT DETAILS</h4>
         {% for i in data %}
         <form action="" method="post">
             {% csrf_token %}
             <div>
-                <input type="number" name="d_id" id="" class="box" placeholder="DID"  value="{{i.pk}}">
+                <input type="number" name="d_id" id="" class="box" placeholder="DID" hidden value="{{i.pk}}">
             </div>
 
             <div>
@@ -42,7 +42,7 @@
             </div>
 
             <div>
-                <input type="submit" class="btn2" value="Update">
+                <input type="submit" class="btn2 mb-2" value="Update">
             </div>
 
         </form>
