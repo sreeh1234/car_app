@@ -167,54 +167,6 @@ def delete(req,pid):
 # -------------------------------------------------------------------------------
 
 
-# def register(req):
-#     if req.method=='POST':
-#         uname=req.POST['uname']
-#         email=req.POST['email']
-#         pswd=req.POST['pswd']
-#         try:
-#             data=User.objects.create_user(first_name=uname,email=email,username=email,password=pswd)
-#             data.save()
-#             otp=""
-#             for i in range(6):
-#                 otp+=str(random.randint(0,9))
-#             msg=f'Your registration is completed otp: {otp}'
-#             otp=Otp.objects.create(user=data,otp=otp)
-#             otp.save()
-#             send_mail('Registration',msg, settings.EMAIL_HOST_USER, [email])
-#             return redirect(otp_confirmation)
-#         except:
-#             messages.warning(req,'Email already exist')
-#             return redirect(register)
-#     else:
-#         return render(req,'user/register.html')
-
-
-# def otp_confirmation(req):
-#     if req.method == 'POST':
-#         uname = req.POST.get('uname')
-#         user_otp = req.POST.get('otp')
-#         try:
-#             user = User.objects.get(username=uname)
-#             generated_otp = Otp.objects.get(user=user)
-    
-#             if generated_otp.otp == user_otp:
-#                 generated_otp.delete()
-#                 return redirect(car_com_login)
-#             else:
-#                 messages.warning(req, 'Invalid OTP')
-#                 return redirect(otp_confirmation)
-#         except User.DoesNotExist:
-#             messages.warning(req, 'User does not exist')
-#             return redirect(otp_confirmation)
-#         except Otp.DoesNotExist:
-#             messages.warning(req, 'OTP not found or expired')
-#             return redirect(otp_confirmation)
-#     return render(req, 'user/otp.html')
-
-
-
-
 def register(req):
     if req.method == 'POST':
         uname = req.POST['uname']
@@ -357,23 +309,7 @@ def buyNow(req,pid):
     else:
         return redirect(car_com_login) 
 
-
-
-def buy_product(req):
-    if 'user' in req.session:
-        Products=details.objects.get(pk=req.session['detail'])
-        user=User.objects.get(username=req.session['user'])
-        qty=1
-        price=Products.offer_price
-        buy=Buy.objects.create(details=Products,user=user,qty=qty,t_price=price,Address=Address.objects.get(pk=req.session['address']))
-        buy.save()
-        Products.stock-=1
-        Products.save()
-        return redirect(user_bookings)
-    else:
-        return redirect(car_com_login)
-
-    
+   
 def cart_buy(req):
     if 'user' in req.session:
         user=User.objects.get(username=req.session['user'])
@@ -445,7 +381,7 @@ def orderSummary(req,Products,data):
             return render(req,'user/ordersummary.html',{'Products':Products,'data':data,'categories':categories})
         print(Products.pk)
         req.session['address']=addr.pk
-        req.session['detail']=Products.pk
+        req.session['details']=Products.pk
         if pay == 'paynow':
 
                 return redirect("orderpayment")    
@@ -458,7 +394,7 @@ def order_payment(req):
     if 'user' in req.session:
         user = User.objects.get(username=req.session['user'])
         name = user.first_name
-        data=details.objects.get(pk=req.session['detail'])
+        data=details.objects.get(pk=req.session['details'])
         amount = data.offer_price
         client = razorpay.Client(auth=(settings.RAZORPAY_KEY_ID, settings.RAZORPAY_KEY_SECRET))
         razorpay_order = client.order.create(
@@ -520,8 +456,10 @@ def order_payment2(req):
     if 'user' in req.session:
         user = User.objects.get(username=req.session['user'])
         name = user.first_name
-        data=details.objects.get(pk=req.session['detail'])
-        amount = data.offer_price
+        data=cart.objects.filter(user=user)
+        amount = 0
+        for i in data:
+            amount+=(i.details.offer_price)*i.qty
         client = razorpay.Client(auth=(settings.RAZORPAY_KEY_ID, settings.RAZORPAY_KEY_SECRET))
         razorpay_order = client.order.create(
             {"amount": int(amount) * 100, "currency": "INR", "payment_capture": "1"}
@@ -596,6 +534,21 @@ def address(req):
             return render(req,"user/addaddress.html",{'data':data})
     else:
         return redirect(car_com_login) 
+
+def buy_product(req):
+    if 'user' in req.session:
+        Products=details.objects.get(pk=req.session['details'])
+        user=User.objects.get(username=req.session['user'])
+        qty=1
+        price=Products.offer_price
+        buy=Buy.objects.create(details=Products,user=user,qty=qty,t_price=price,Address=Address.objects.get(pk=req.session['address']))
+        buy.save()
+        Products.stock-=1
+        Products.save()
+        return redirect(user_bookings)
+    else:
+        return redirect(car_com_login)    
+
     
 def delete_address(req,pid):
     if 'user' in req.session:

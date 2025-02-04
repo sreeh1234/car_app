@@ -33,6 +33,16 @@
             </div>
         </form>
     </div>
+    <div class="sub" style="width: 30%; margin:auto;">
+        {% if messages %}
+        {% for message in messages %}
+        <div class="alert alert-warning alert-dismissible">
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            <strong>Warning!</strong>{{ message }}
+        </div>
+        {% endfor %}
+        {% endif %}
+    </div>
 
 </body>
 

@@ -134,5 +134,5 @@ EMAIL_PORT = 587
 EMAIL_HOST_USER = 'cruisegearretrofit@gmail.com'
 EMAIL_HOST_PASSWORD = 'oevj ixzb ltdi erpr'
 
-RAZORPAY_KEY_ID = 'rzp_test_24689WalrA8zZjNMVG'
-RAZORPAY_KEY_SECRET = 'VSks8aj2468MWMdAB2mAjoM6YMpO'
+RAZORPAY_KEY_ID = 'rzp_test_9WalrA8zZjNMVG'
+RAZORPAY_KEY_SECRET = 'VSks8ajMWMdAB2mAjoM6YMpO'

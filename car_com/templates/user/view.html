@@ -16,8 +16,8 @@
 </head>
 <body>
 
-    
-    <nav class="navbar navbar-expand-sm">
+
+    <nav class="navbar navbar-expand-sm fixed-top">
         <div class="container-fluid">
             <img src="../../static/cruisegear2br.png" style="width: 165px;height: 140px;" alt="">
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar">
@@ -25,17 +25,17 @@
             </button>
             <div class="collapse navbar-collapse" id="collapsibleNavbar">
                 <ul class="navbar-nav ms-auto me-5">
-                    <li class="nav-item"><a class="nav-link fcolor" href="user_home">HOME</a></li>
-                    <li class="nav-item"><a class="nav-link fcolor" href="../viewcart">VIEW CART</a></li>  
-                    <li class="nav-item"><a class="nav-link fcolor" href="../userbookings">BOOKINGS</a></li>
-                    <li class="nav-item"><a class="nav-link fcolor" href="logout">LOGOUT</a></li>
+                  <li class="nav-item"><a class="nav-link fcolor" href="user_home">HOME</a></li>
+                  <li class="nav-item"><a class="nav-link fcolor" href="../viewcart">VIEW CART</a></li>
+                  <li class="nav-item"><a class="nav-link fcolor" href="../../userbookings">BOOKINGS</a></li>
+                  <li class="nav-item"><a class="nav-link fcolor" href="logout">LOGOUT</a></li>
                 </ul>
+                
             </div>
         </div>
     </nav>
-
     
-    <div class="order-details-container fixed-top">
+    <div class="order-details-container ">
         <div class="container">
             <div class="row">
                 
@@ -75,6 +75,9 @@
                 </div>    
             </div>
         </div>
+        <div class=" mt-4 mb-4" style="text-align: right;margin-right: 200px;">
+            <a href="../user_home" class="btn btn-danger" >Go back</a>
+        </div>
     </div>
 
     <footer>
@@ -105,16 +108,13 @@
         </div>
     </footer>
 
-    
-    <div class="mt-4 text-end me-5">
-        <a href="../viewcart" class="btn btn-danger">Go back</a>
-    </div>
-
     <script>
         function get_correct_price(dis) {
             window.location.href = window.location.pathname + `?dis=${dis}`;
         }
     </script>
+
+
 
 </body>
 </html>
