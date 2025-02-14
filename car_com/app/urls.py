@@ -3,7 +3,12 @@ from . import views
 
 
 urlpatterns=[
-    path('',views.car_com_login),
+
+    path('',views.dummy_home),
+    path('car_com_login',views.car_com_login),
+
+    # --------------------shop----------------------
+
     path('shop_home',views.shop_home),
     path('logout',views.car_com_logout),
     path('add_product',views.addpro),
@@ -18,7 +23,7 @@ urlpatterns=[
     
 
 
-    
+    # --------------------user----------------------
     
     
     path('register',views.register),

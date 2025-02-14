@@ -4,6 +4,7 @@ from django.db.models.fields import CharField
 from django.utils.translation import gettext_lazy as _
 from .constants import PaymentStatus
 
+
 # Create your models here.
 
 class category(models.Model):

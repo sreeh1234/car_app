@@ -220,6 +220,13 @@ def user_home(req):
         return render(req,'user/home.html',{'product':products,'data':data})
     else:
         return redirect(car_com_login)
+
+def dummy_home(req):
+        products=product.objects.all()
+        data=category.objects.all()
+        return render(req,'user/dummyhome.html',{'product':products,'data':data})
+    
+
     
 def viewpro(req,pid):
     if 'user' in req.session:
@@ -263,9 +270,12 @@ def view_product(req,id):
 
 
 def view_cart(req):
-    user=User.objects.get(username=req.session['user'])
-    data=cart.objects.filter(user=user)
-    return render(req,'user/cart.html',{'cart':data})
+    if 'user' in req.session:
+        user=User.objects.get(username=req.session['user'])
+        data=cart.objects.filter(user=user)
+        return render(req,'user/cart.html',{'cart':data})
+    else:
+        return redirect(car_com_login)
 
 def qty_incri(req,cid):
     data=cart.objects.get(pk=cid)
@@ -283,7 +293,7 @@ def qty_dec(req,cid):
     data.save()
     if data.qty==0:
         data.delete()
-    return redirect(view_cart) 
+    return redirect(view_cart)   
 
 def buyNow(req,pid):
     if 'user' in req.session:
@@ -317,6 +327,7 @@ def cart_buy(req):
         price=0
         for i in Cart:
             price+=(i.details.offer_price)*i.qty
+            # cost+=(i.details.price)-(total)*i.qty
             total=price
             data=Address.objects.filter(user=user)
         if data:
@@ -361,9 +372,12 @@ def orderSummary2(req,price,total):
       
 
 def user_bookings(req):
-    user=User.objects.get(username=req.session['user'])
-    bookings=Buy.objects.filter(user=user)[::-1]
-    return render(req,'user/bookings.html',{'bookings':bookings})
+    if 'user' in req.session:
+        user=User.objects.get(username=req.session['user'])
+        bookings=Buy.objects.filter(user=user)[::-1]
+        return render(req,'user/bookings.html',{'bookings':bookings})
+    else:
+        return redirect(car_com_login)
 
 
 def orderSummary(req,Products,data):
