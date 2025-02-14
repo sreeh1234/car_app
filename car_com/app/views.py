@@ -222,9 +222,13 @@ def user_home(req):
         return redirect(car_com_login)
 
 def dummy_home(req):
+    if 'user' in req.session:
+        return redirect(user_home) 
+    else:
         products=product.objects.all()
         data=category.objects.all()
         return render(req,'user/dummyhome.html',{'product':products,'data':data})
+        
     
 
     
