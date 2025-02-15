@@ -43,6 +43,10 @@ form {
     margin: 50px auto;
 }
 
+.forms{
+    margin-top: 20px;
+}
+
 input[type="text"] {
     width: 100%;
     padding: 12px;
@@ -124,3 +128,24 @@ a[href*="delete_category"]:hover {
 .fcolor{
     color: white;
 }
+
+@media (max-width: 600px) {
+  
+    .nav-item{
+        background-color: black;
+    }
+    
+    .navbar{
+        height: auto;
+    }
+    
+    .forms{
+        margin-top: 80px;
+    }
+
+    .navbar-toggler-icon {
+        background-color: black;  
+        border: 1px solid white;  
+    }
+}
+

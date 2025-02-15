@@ -128,9 +128,9 @@ body {
         width: 100%;
     }
 
-    /* Adjust navbar height when menu is expanded on smaller screens */
+    
     .nav1 {
-        height: auto; /* Allow height to adjust dynamically */
+        height: auto; 
     }
 }
 

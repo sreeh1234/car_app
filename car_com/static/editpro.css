@@ -134,11 +134,20 @@ body {
     }
 
     .navbar {
-        height: 80px;
+        height: auto;
     }
 
     .navbar-nav .nav-link {
         font-size: 14px;
+    }
+
+    .nav-item{
+        background-color: black;
+    }
+
+    .navbar-toggler-icon {
+        background-color: white;  
+        border: 1px solid white;  
     }
 }
 

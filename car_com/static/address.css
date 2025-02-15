@@ -108,6 +108,7 @@ h1.font11 {
 
     h1.font11 {
         font-size: 28px;
+        margin-top: 50px;
     }
 
     .card {
@@ -122,5 +123,22 @@ h1.font11 {
     .btn-danger {
         font-size: 14px;
         padding: 6px 12px;
+    }
+
+    .navbar {
+        height: auto;
+    }
+
+    .navbar-nav .nav-link {
+        font-size: 14px;
+    }
+
+    .nav-item{
+        background-color: black;
+    }
+
+    .navbar-toggler-icon {
+        background-color: white;  
+        border: 1px solid white;  
     }
 }

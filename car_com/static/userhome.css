@@ -77,3 +77,29 @@ body {
   background-color: black;
   padding-top: 120px;
 }
+
+@media (max-width: 600px) { 
+
+    .navbar {
+      height: auto;
+  }
+
+  .navbar-nav .nav-link {
+      font-size: 14px;
+  }
+
+  .nav-item{
+      background-color: black;
+      text-align: center;
+  }
+
+  .navbar-toggler-icon {
+      background-color: black;  
+      border: 1px solid white;  
+  }
+
+  .card{
+    margin-top: 50px;
+  }
+
+}
